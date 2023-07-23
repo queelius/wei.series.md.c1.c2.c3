@@ -1,0 +1,31 @@
+Package: wei.series.md.c1.c2.c3
+Title: Estimating Reliability of Weibull Components in Series from Masked Data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Alexander", "Towell", , "lex@metafunctor.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6443-9897"))
+Description: Set of functions for providing MLEs for lifetime parameters of latent Weibull components in series systems.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown,
+    devtools,
+    printr,
+    tidyverse,
+Imports: 
+    dplyr,
+    stats,
+    tibble,
+    md.tools,
+    algebraic.mle,
+    cubature
+Remotes:
+    github::queelius/md.tools,
+    github::queelius/algebraic.mle
+Depends: 
+    R (>= 2.10)
+LazyData: true
+VignetteBuilder: knitr
