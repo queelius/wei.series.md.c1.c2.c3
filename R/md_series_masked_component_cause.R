@@ -103,3 +103,50 @@ md_cand_sampler <- function(df, control = list()) {
         X[i, ] <- runif(m) <= Q[i, ]
     df %>% bind_cols(md_encode_matrix(X, control$candset))
 }
+
+#' Check if a masked data frame is identifiable.
+#' @param df masked data frame
+#' @param candset column prefix for candidate sets, defaults to `x`,
+#' e.g., `x1, x2, x3`.
+#' @return TRUE if identifiable, FALSE otherwise
+#' @importFrom md.tools md_decode_matrix
+md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
+
+    C <- md_decode_matrix(df, candset)
+    if (is.null(C)) {
+        stop("No candidate set variables found")
+    }
+    n <- nrow(C)
+    if (n == 0) {
+        return(FALSE)
+    }
+    m <- ncol(C)
+
+    # make sure a component appears at least once in
+    # a candidat set by checking each column of C
+    # and verifying that it has at least one 1 (TRUE)
+    # this also checks to make sure that not every
+    # observation is right-censored, since if that
+    # were the case, then every column of C would
+    # be all 0 (FALSE)
+    if (any(colSums(C) == 0)) {
+        return(FALSE)
+    }
+
+    # make sure that there is at least one observation
+    # (row) that has a 0 (FALSE) in a column of C
+    # if every candidate set has all components,
+    # then the candidate sets convey no information
+    # about the components, and the model is not
+    # identifiable.
+    if (all(rowSums(C) == m)) {
+        return(FALSE)
+    }
+
+    # these two conditions are necessary, but not
+    # sufficient for identifiability. it's not clear
+    # that we can determine ahead of time when
+    # identifiability is not possible, so we'll
+    # just return TRUE.
+    return(TRUE)
+}
