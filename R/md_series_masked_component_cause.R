@@ -115,6 +115,7 @@ md_cand_sampler <- function(df, control = list()) {
 #' e.g., `x1, x2, x3`.
 #' @return TRUE if identifiable, FALSE otherwise
 #' @importFrom md.tools md_decode_matrix
+#' @export
 md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
 
     C <- md_decode_matrix(df, candset)
