@@ -105,6 +105,11 @@ md_cand_sampler <- function(df, control = list()) {
 }
 
 #' Check if a masked data frame is identifiable.
+#' 
+#' We want to make sure that the right-censored, masked component cause of failure
+#' data has enough information in it for the likelihood model to be uniquely
+#' identified.
+#'
 #' @param df masked data frame
 #' @param candset column prefix for candidate sets, defaults to `x`,
 #' e.g., `x1, x2, x3`.

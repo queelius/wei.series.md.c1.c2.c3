@@ -16,5 +16,7 @@ e.g., \verb{x1, x2, x3}.}
 TRUE if identifiable, FALSE otherwise
 }
 \description{
-Check if a masked data frame is identifiable.
+We want to make sure that the right-censored, masked component cause of failure
+data has enough information in it for the likelihood model to be uniquely
+identified.
 }
