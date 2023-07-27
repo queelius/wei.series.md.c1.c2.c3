@@ -126,7 +126,6 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     if (n == 0) {
         return(FALSE)
     }
-    m <- ncol(C)
 
     # make sure a component appears at least once in
     # a candidat set by checking each column of C
@@ -145,7 +144,7 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     # then the candidate sets convey no information
     # about the components, and the model is not
     # identifiable.
-    if (all(rowSums(C) == m)) {
+    if (all(rowSums(C) == ncol(C))) {
         return(FALSE)
     }
 
@@ -155,4 +154,53 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     # identifiability is not possible, so we'll
     # just return TRUE.
     return(TRUE)
+}
+
+
+#' Add info about component cause of failure to a
+#' masked data frame with latent components available.
+#' @param df masked data frame
+#' @param comp column prefix for component lifetimes, defaults to `t`,
+#' @return a data frame with a new `k` column
+#' @importFrom md.tools md_decode_matrix
+#' @importFrom dplyr %>% bind_cols
+#' @export
+md_decorate_component_cause_k <- function(df, comp = "t") {
+
+    Tm <- md_decode_matrix(df, comp)
+    if (is.null(Tm)) {
+        stop("No component lifetime variables found")
+    }
+    K <- apply(Tm, 1, which.min)
+    df %>% bind_cols(k = K) %>% md_mark_latent("k")
+}
+
+#' Empirical sampler for C[i] | K[i] = k given a masked
+#' data frame with component cause of failures shown.
+#' 
+#' In the likelihood model, we assume rather that
+#' C[i] | T[i] = t, K[i] = k satisfies certain assumptions.
+#' We're letting the data speak for itself, except for tractability
+#' we're discarding the conditional relation on T[i] and only
+#' keeping the conditional relation on K[i], whatever it happens to be.
+#' 
+#' We could discretize the component lifetimes and then sample
+#' from the empirical distribution of C[i] | T[i] = t, K[i] = k,
+#' but that would be a lot of work and we'd have to choose a
+#' discretization scheme. Instead, we'll just sample from the
+#' empirical distribution of C[i] | K[i] = k.
+#' 
+#' @param df masked data frame
+#' @param candset column prefix for candidate sets, defaults to `x`,
+#'                e.g., `x1, x2, x3`.
+#' @param cause column name for component cause of failure, defaults to `k`
+#' @return a data frame of candidate sets sampled from the empirical
+#'         distribution of C[i] | K[i] = k
+#' @importFrom md.tools md_decode_matrix
+#' @importFrom dplyr %>% starts_with select sample_n
+#' @export
+sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
+    df[df[[cause]] == k,] %>% select(starts_with(candset)) %>%
+        sample_n(size = n, replace = TRUE)
+        
 }
