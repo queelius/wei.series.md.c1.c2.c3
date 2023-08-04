@@ -8,8 +8,8 @@
 #       k1 = 1.2576, lambda1 = 994.3661,
 #       k2 = 1.1635, lambda2 = 908.9458,
 #       k3 = 1.1308, lambda3 = 840.1141,
-#       k4 = 1.1308, lambda4 = 940.1342,
-#       k5 = 1.1308, lambda5 = 923.1631)
+#       k4 = 1.1802, lambda4 = 940.1342,
+#       k5 = 1.2034, lambda5 = 923.1631)
 
 library(usethis)
 alex_weibull_series <- list(

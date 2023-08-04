@@ -216,3 +216,51 @@ md_sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
     df[df[[cause]] == k,] %>% select(starts_with(candset)) %>%
         sample_n(size = n, replace = TRUE)
 }
+
+
+
+
+#' Conditional sampler C[i] | T[i] = t, K[i] = k
+#' We have a smoothing parameter that specifies the bin's width. 
+#' 
+#' If component cause of failure is known, then we can sample from the
+#' conditional distribution of C[i] | T[i] = t, K[i] = k, otherwise
+#' we can sample from the empirical distribution of C[i] | T[i] = t[i],
+#' which may still be reasonable, since by Condition 2,
+#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j} = 
+#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j'}  for all j, j' in c[i].
+#' Of course, we may violate Condition 1, Pr{K[i] in C[i]} = 1.
+#' 
+#' Note that if |c[i]| = 1, then we can sample from the empirical
+#' distribution of C[i] | T[i] = t[i], K[i] = j, since there is only
+#' one possible value for K[i], K[i] = j if c[i] = {j}. Otherwise,
+#' if |c[i]| > 1, and we don't know the component cause of failure,
+#' then we can sample from the empirical distribution of C[i] | T[i] = t[i].
+#' 
+#' In the semi-parametric bootstrap, we generate the samples ourselves
+#' from our estimate of theta, so we can sample from the conditional
+#' distribution of C[i] | T[i] = t[i], K[i] = j, since we know the
+#' simulated component cause of failure. This is the main reason we
+#' want to sample C[i] | T[i] = t[i], K[i] = j, so this is fine.
+#'
+#' @param t observed lifetime, defaults to NA (unknown or unconditional)
+#' @param k component cause of failure, defaults to NA (unknown)
+#' @param df data frame (sample) that we used to estimate C[i] | T[i] = t[i], K[i] = j
+#'           `df` should only contain data in which the system failed, rather than being
+#'           right-censored.
+#' @param nbins number of bins to use for discretizing the component lifetimes
+conditional_masked_cause <- function(n, df, t, k, nbins = 10) {
+
+  df <- df[df$delta, ] %>% mutate(
+    bins = cut(t, breaks = quantile(t, probs = seq(0, 1, 1/nbins)),
+        include.lowest = TRUE))
+  
+  # Find which bin t belongs to
+  bin <- df$bins[df$t == t]
+  
+  # Sample indices to sthat we know which rows in `df`
+  # to sample from
+  indices <- sample(df$bins == bin & df$k == k, n)
+
+  # look at the rows, 
+}
