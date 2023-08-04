@@ -1,0 +1,62 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# wei.series.md.c1.c2.c3
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of wei.series.md.c1.c2.c3 is to ...
+
+## Installation
+
+You can install the development version of wei.series.md.c1.c2.c3 from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("queelius/wei.series.md.c1.c2.c3")
+```
+
+```{r}
+library(algebraic.dist)
+library(algebraic.mle)
+library(wei.series.md.c1.c2.c3)
+```
+
+
+```{r}
+# fit the model
+fit <- mle_numerical(mle_lbfgsb_wei_series_md_c1_c2_c3(
+  df = guo_weibull_series_md$data,
+  theta0 = c(1,1,1,1,1,1),
+  control = list(
+    maxit = 1000L,
+    parscale = c(1, 1000, 1, 1000, 1, 1000))))
+
+cbind(confint(fit),
+  mle = params(fit),
+  true = guo_weibull_series_md$mle)
+
+guo_weibull_series_md$loglike
+loglik_val(fit)
+```
+
+We see that they are approximately the same.
+```{r}
+# plot the data
+plot(guo_weibull_series_md$data)
+
+
+```

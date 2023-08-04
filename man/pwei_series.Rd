@@ -4,14 +4,14 @@
 \alias{pwei_series}
 \title{The cumulative distribution function for Weibull series}
 \usage{
-pwei_series(t, scales, shapes)
+pwei_series(t, shapes, scales)
 }
 \arguments{
 \item{t}{series system lifetime}
 
-\item{scales}{scale parameters for Weibull component lifetimes}
-
 \item{shapes}{shape parameters for Weibull component lifetimes}
+
+\item{scales}{scale parameters for Weibull component lifetimes}
 }
 \description{
 The cumulative distribution function for Weibull series

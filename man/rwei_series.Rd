@@ -4,14 +4,14 @@
 \alias{rwei_series}
 \title{Sampler for weibull series.}
 \usage{
-rwei_series(n, scales, shapes)
+rwei_series(n, shapes, scales)
 }
 \arguments{
 \item{n}{sample size}
 
-\item{scales}{scale parameters for weibull component lifetimes}
-
 \item{shapes}{shape parameters for weibull component lifetimes}
+
+\item{scales}{scale parameters for weibull component lifetimes}
 }
 \description{
 Sampler for weibull series.

@@ -13,7 +13,6 @@ Suggests:
     knitr,
     rmarkdown,
     devtools,
-    printr,
     tidyverse,
 Imports: 
     dplyr,
@@ -21,10 +20,13 @@ Imports:
     tibble,
     md.tools,
     algebraic.mle,
-    cubature
+    cubature,
+    MASS,
+    numDeriv
 Remotes:
     github::queelius/md.tools,
-    github::queelius/algebraic.mle
+    github::queelius/algebraic.mle,
+    github::queelius/algebraic.dist
 Depends: 
     R (>= 2.10)
 LazyData: true

@@ -19,10 +19,12 @@ mle_lbfgsb_wei_series_md_c1_c2_c3(
 
 \item{theta0}{initial parameter vector}
 
+\item{hessian}{logical, if \code{TRUE}, then the Hessian is estimated and returned}
+
 \item{...}{additional arguments passed to \code{loglik_wei_series_md_c1_c2_c3} and
 \code{score_wei_series_md_c1_c2_c3}.}
 
-\item{control}{list of control parameters passed to \code{optim} for \code{method == "L-BFGS-B"}}
+\item{control}{list of control parameters passed to \code{optim}}
 }
 \value{
 list with components:

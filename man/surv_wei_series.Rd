@@ -4,14 +4,14 @@
 \alias{surv_wei_series}
 \title{Survival function for weibull series}
 \usage{
-surv_wei_series(t, scales, shapes)
+surv_wei_series(t, shapes, scales)
 }
 \arguments{
 \item{t}{series system lifetime}
 
-\item{scales}{scale parameters for weibull component lifetimes}
-
 \item{shapes}{shape parameters for weibull component lifetimes}
+
+\item{scales}{scale parameters for weibull component lifetimes}
 }
 \description{
 Survival function for weibull series

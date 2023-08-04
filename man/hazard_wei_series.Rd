@@ -4,14 +4,14 @@
 \alias{hazard_wei_series}
 \title{Hazard function for weibull series.}
 \usage{
-hazard_wei_series(t, scales, shapes)
+hazard_wei_series(t, shapes, scales)
 }
 \arguments{
 \item{t}{series system lifetime}
 
-\item{scales}{scale parameters for weibull component lifetimes}
-
 \item{shapes}{shape parameters for weibull component lifetimes}
+
+\item{scales}{scale parameters for weibull component lifetimes}
 }
 \description{
 Hazard function for weibull series.

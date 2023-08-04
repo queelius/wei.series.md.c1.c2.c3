@@ -13,7 +13,8 @@ md_bernoulli_cand_c1_c2_c3_identifiable(df, candset = "x")
 e.g., \verb{x1, x2, x3}.}
 }
 \value{
-TRUE if identifiable, FALSE otherwise
+returns a string describing the data as yielding an identifiable
+likelihood function, or one or more reasons why it is not identifiable.
 }
 \description{
 We want to make sure that the right-censored, masked component cause of failure

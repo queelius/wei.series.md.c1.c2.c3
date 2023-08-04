@@ -5,12 +5,20 @@
 \title{Gradient ascent MLE solver for Weibull series model with masked component cause of
 failure with observation of exact system lifetime and right censoring.}
 \usage{
-mle_grad_wei_series_md_c1_c2_c3(df, theta0, ..., control = list())
+mle_grad_wei_series_md_c1_c2_c3(
+  df,
+  theta0,
+  hessian = TRUE,
+  ...,
+  control = list()
+)
 }
 \arguments{
 \item{df}{data frame, right-censored lifetimes with masked component cause of failure}
 
 \item{theta0}{initial parameter vector}
+
+\item{hessian}{logical, if \code{TRUE}, then the Hessian is estimated and returned}
 
 \item{...}{additional arguments passed to \code{loglik_wei_series_md_c1_c2_c3} and
 \code{score_wei_series_md_c1_c2_c3}.}

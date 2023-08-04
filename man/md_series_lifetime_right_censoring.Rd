@@ -8,24 +8,25 @@ component lifetimes.}
 \usage{
 md_series_lifetime_right_censoring(
   df,
-  tau = NULL,
-  control = list(comp = "t", lifetime = "t", right_censoring_indicator = "delta")
+  tau = Inf,
+  comp = "t",
+  lifetime = "t",
+  right_censoring_indicator = "delta"
 )
 }
 \arguments{
 \item{df}{a data frame with the indicated component lifetimes}
 
 \item{tau}{vector of right-censoring times, defaults to
-\code{NULL} (no right censoring)}
+\code{Inf} (no right censoring)}
 
-\item{control}{list of control parameters
-\itemize{
-\item \code{comp} - component lifetime prefix variable name, defaults to \code{t}, e.g.,
-\verb{t1, t2, t3}.
-\item \code{lifetime} - system lifetime variable name, defaults to \code{t}
-\item \code{right_censoring_indicator} - right-censoring indicator variable, defaults
-to \code{delta}
-}}
+\item{comp}{component lifetime prefix variable name, defaults to \code{t}, e.g.,
+\verb{t1, t2, t3}.}
+
+\item{lifetime}{system lifetime variable name, defaults to \code{t}}
+
+\item{right_censoring_indicator}{right-censoring indicator variable, defaults
+to \code{delta}}
 }
 \value{
 (masked) data frame with masked data as described in the paper

@@ -4,14 +4,14 @@
 \alias{dwei_series}
 \title{pdf for weibull series}
 \usage{
-dwei_series(t, scales, shapes)
+dwei_series(t, shapes, scales)
 }
 \arguments{
 \item{t}{series system lifetime}
 
-\item{scales}{scale parameters for weibull component lifetimes}
-
 \item{shapes}{shape parameters for weibull component lifetimes}
+
+\item{scales}{scale parameters for weibull component lifetimes}
 }
 \description{
 pdf for weibull series

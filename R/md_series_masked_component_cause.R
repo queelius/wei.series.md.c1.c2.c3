@@ -5,40 +5,40 @@
 #' This model satisfies conditions C1, C2, and C3.
 #' The failed component will be in the corresponding candidate set with
 #' probability 1, and the remaining components will be in the candidate set
-#' with probability `p`.
+#' with probability `p` (the same probability for each component). `p` 
+#' may be different for each system, but it is assumed to be the same for
+#' each component within a system, so `p` can be a vector such that the
+#' length of `p` is the number of systems in the data set (with recycling
+#' if necessary).
 #'
 #' @param df masked data.
 #' @param p a vector of probabilities (p[j] is the probability that the jth
-#'         system will include a non-failed component in its candidate set,
-#'         assuming the jth system is not right-censored).
-#' @param control 
-#'  - `prob` - column prefix for component probabilities, defaults to
-#'    `q`, e.g., `q1, q2, q3`.
-#'  - `comp` - column prefix for component lifetimes, defaults to `t`,
-#'     e.g., `t1, t2, t3`.
-#'  - `right_censoring_indicator` right-censoring indicator column name, if
-#'     TRUE, then the system lifetime is right-censored, otherwise it is
-#'     observed.
+#'          system will include a non-failed component in its candidate set,
+#'          assuming the jth system is not right-censored).
+#' @param prob column prefix for component probabilities, defaults to
+#'             `q`, e.g., `q1, q2, q3`.
+#' @param comp column prefix for component lifetimes, defaults to `t`,
+#'             e.g., `t1, t2, t3`.
+#' @param right_censoring_indicator right-censoring indicator column name.
+#'     if TRUE, then the system lifetime is right-censored, otherwise it is
+#'     observed. If NULL, then no right-censoring is assumed. Defaults to
+#'     `delta`.
 #' @importFrom md.tools md_decode_matrix md_encode_matrix md_mark_latent
 #' @importFrom dplyr %>% bind_cols
 #' @export
 md_bernoulli_cand_c1_c2_c3 <- function(
     df,
     p,
-    control = list()) {
-
-    defaults <- list(
-        comp = "t",
-        prob = "q",
-        right_censoring_indicator = NULL)
-    control <- modifyList(defaults, control)
+    prob = "q",
+    comp = "t",
+    right_censoring_indicator = "delta") {
 
     n <- nrow(df)
     if (n == 0) {
         return(df)
     }
     p <- rep(p, length.out = n)
-    Tm <- md_decode_matrix(df, control$comp)
+    Tm <- md_decode_matrix(df, comp)
     if (is.null(Tm)) {
         stop("No component lifetime variables found")
     }
@@ -46,19 +46,18 @@ md_bernoulli_cand_c1_c2_c3 <- function(
     Q <- matrix(p, nrow = n, ncol = m)
     Q[cbind(1:n, apply(Tm, 1, which.min))] <- 1
 
-    if (!is.null(control$right_censoring_indicator)) {
+    if (!is.null(right_censoring_indicator)) {
 
-        if (!control$right_censoring_indicator %in% colnames(df)) {
-            stop("right_censoring_indicator variable not in colnames(df)")
+        if (!right_censoring_indicator %in% colnames(df)) {
+            stop("right_censoring_indicator not in colnames(df)")
         }
-        delta <- df[[control$right_censoring_indicator]]
-        Q[delta, ] <- 0
+        Q[df[[right_censoring_indicator]], ] <- 0
     }
 
     # remove in case it already has columns for q1,...,qm
-    df[ , paste0(control$prob, 1:m)] <- NULL
-    df %>% bind_cols(md_encode_matrix(Q, control$prob)) %>%
-           md_mark_latent(paste0(control$prob, 1:m))
+    df[ , paste0(prob, 1:m)] <- NULL
+    df %>% bind_cols(md_encode_matrix(Q, prob)) %>%
+           md_mark_latent(paste0(prob, 1:m))
 }
 
 #' Candidate set generator. Requires columns for component probabilities
@@ -67,16 +66,15 @@ md_bernoulli_cand_c1_c2_c3 <- function(
 #' in the `md` table.
 #'
 #' @param df (masked) data frame
-#' @param control 
-#'  - `prob` - column prefix for component probabilities, defaults to
-#'    `q`, e.g., `q1, q2, q3`.
-#'  - `candset` - column prefix for candidate sets (as Boolean matrix),
-#'    defaults to `x`, e.g., `x1, x2, x3`.
+#' @param prob column prefix for component probabilities, defaults to
+#'             `q`, e.g., `q1, q2, q3`.
+#' @param candset column prefix for candidate sets (as Boolean matrix),
+#'                defaults to `x`, e.g., `x1, x2, x3`.
 #' @importFrom md.tools md_decode_matrix md_encode_matrix
 #' @importFrom dplyr %>% bind_cols
 #' @importFrom stats runif
 #' @export
-md_cand_sampler <- function(df, control = list()) {
+md_cand_sampler <- function(df, prob = "q", candset = "x") {
 
     if (!is.data.frame(df)) {
         stop("df must be a data frame")
@@ -87,21 +85,17 @@ md_cand_sampler <- function(df, control = list()) {
         return(df)
     }
 
-    defaults <- list(
-        prob = "q",
-        candset = "x")
-    control <- modifyList(defaults, control)
-
-    Q <- md_decode_matrix(df, control$prob)
+    Q <- md_decode_matrix(df, prob)
     m <- ncol(Q)
     if (m == 0) {
         stop("No component probabilities found")
     }
 
     X <- matrix(NA, nrow=n, ncol=m)
-    for (i in 1:n)
+    for (i in 1:n) {
         X[i, ] <- runif(m) <= Q[i, ]
-    df %>% bind_cols(md_encode_matrix(X, control$candset))
+    }
+    df %>% bind_cols(md_encode_matrix(X, candset))
 }
 
 #' Check if a masked data frame is identifiable.
@@ -113,7 +107,8 @@ md_cand_sampler <- function(df, control = list()) {
 #' @param df masked data frame
 #' @param candset column prefix for candidate sets, defaults to `x`,
 #' e.g., `x1, x2, x3`.
-#' @return TRUE if identifiable, FALSE otherwise
+#' @return returns a string describing the data as yielding an identifiable
+#'         likelihood function, or one or more reasons why it is not identifiable.
 #' @importFrom md.tools md_decode_matrix
 #' @export
 md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
@@ -124,9 +119,10 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     }
     n <- nrow(C)
     if (n == 0) {
-        return(FALSE)
+        return("No observations")
     }
 
+    reasons <- c()
     # make sure a component appears at least once in
     # a candidat set by checking each column of C
     # and verifying that it has at least one 1 (TRUE)
@@ -135,7 +131,7 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     # were the case, then every column of C would
     # be all 0 (FALSE)
     if (any(colSums(C) == 0)) {
-        return(FALSE)
+        reasons <- c(reasons, "No component appears in a candidate set")
     }
 
     # make sure that there is at least one observation
@@ -145,15 +141,32 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     # about the components, and the model is not
     # identifiable.
     if (all(rowSums(C) == ncol(C))) {
-        return(FALSE)
+        reasons <- c(reasons, "Every candidate set has all components")
     }
 
-    # these two conditions are necessary, but not
+
+    # if a column in C is all 1 (TRUE), then the
+    # corresponding component is always in the
+    # candidate set, and the model is not
+    # identifiable.
+    cs <- colSums(C) == nrow(C)
+    if (any(cs)) {
+        reasons <- c(reasons, paste0("Component(s) ", paste(which(cs), collapse = ", "), " always in candidate set"))
+    }
+
+    # these conditions are necessary, but not
     # sufficient for identifiability. it's not clear
     # that we can determine ahead of time when
-    # identifiability is not possible, so we'll
-    # just return TRUE.
-    return(TRUE)
+    # identifiability is not possible, but if the
+    # MLE is not unique, that also means that the
+    # likelihood function is not identifiable.
+    # we do not check for that here, since it
+    # depends on the likelihood model, e.g., weibull series,
+    # and so on. at the time we find the MLE, though,
+    # we can check to see if the likelihood function
+    # is approximately flat where it is at a maximum,
+    # and if so, then the likelihood function is not identifiable.
+    return(reasons)
 }
 
 
@@ -199,8 +212,7 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
 #' @importFrom md.tools md_decode_matrix
 #' @importFrom dplyr %>% starts_with select sample_n
 #' @export
-sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
+md_sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
     df[df[[cause]] == k,] %>% select(starts_with(candset)) %>%
         sample_n(size = n, replace = TRUE)
-        
 }

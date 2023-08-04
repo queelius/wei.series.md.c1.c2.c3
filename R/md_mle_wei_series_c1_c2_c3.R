@@ -3,9 +3,10 @@
 #' right censoring.
 #' @param df data frame, right-censored lifetimes with masked component cause of failure
 #' @param theta0 initial parameter vector
+#' @param hessian logical, if `TRUE`, then the Hessian is estimated and returned
 #' @param ... additional arguments passed to `loglik_wei_series_md_c1_c2_c3` and
 #'            `score_wei_series_md_c1_c2_c3`.
-#' @param control list of control parameters passed to `optim` for `method == "L-BFGS-B"`
+#' @param control list of control parameters passed to `optim`
 #' @return list with components:
 #' - `par` final parameter vector
 #' - `value` final log-likelihood
@@ -14,6 +15,7 @@
 #' - `message` convergence message
 #' - `hessian` estimated Hessian
 #' @importFrom stats optim
+#' @importFrom utils modifyList
 #' @export
 mle_lbfgsb_wei_series_md_c1_c2_c3 <- function(
     df,
@@ -54,6 +56,7 @@ mle_lbfgsb_wei_series_md_c1_c2_c3 <- function(
 #' - `hessian` estimated Hessian
 #' @importFrom stats optim
 #' @importFrom MASS ginv
+#' @importFrom utils modifyList
 #' @export
 mle_newton_wei_series_md_c1_c2_c3 <- function(
     df,
@@ -113,6 +116,7 @@ mle_newton_wei_series_md_c1_c2_c3 <- function(
 #' failure with observation of exact system lifetime and right censoring.
 #' @param df data frame, right-censored lifetimes with masked component cause of failure
 #' @param theta0 initial parameter vector
+#' @param hessian logical, if `TRUE`, then the Hessian is estimated and returned
 #' @param ... additional arguments passed to `loglik_wei_series_md_c1_c2_c3` and
 #'            `score_wei_series_md_c1_c2_c3`.
 #' @param control list of control parameters to control the gradient ascent solver.
@@ -123,10 +127,12 @@ mle_newton_wei_series_md_c1_c2_c3 <- function(
 #' - `convergence` convergence code
 #' - `hessian` estimated Hessian
 #' @importFrom stats optim
+#' @importFrom utils modifyList
 #' @export
 mle_grad_wei_series_md_c1_c2_c3 <- function(
     df,
     theta0,
+    hessian = TRUE,
     ...,
     control = list()) {
 
@@ -168,9 +174,14 @@ mle_grad_wei_series_md_c1_c2_c3 <- function(
             a <- a / 2
         }
     }
-    list(par = theta0, value = l, counts = iter, convergence = convergence,
-        hessian = hessian_wei_series_md_c1_c2_c3(df = df, theta = theta0, ...),
-        score = s)
+
+    res <- list(par = theta0, value = l, counts = iter,
+        convergence = convergence,, score = s)
+
+    if (hessian) {
+        res$hessian <- hessian_wei_series_md_c1_c2_c3(df = df, theta = theta0, ...)
+    }
+    return(res)
 }
 
 #' Nelder-Mead MLE solver for the Weibull series model with
@@ -178,6 +189,7 @@ mle_grad_wei_series_md_c1_c2_c3 <- function(
 #' right censoring.
 #' @param df data frame, right-censored lifetimes with masked component cause of failure
 #' @param theta0 initial parameter vector
+#' @param hessian logical, if `TRUE`, then the Hessian is estimated and returned
 #' @param ... additional arguments passed to `loglik_wei_series_md_c1_c2_c3`.
 #' @param control list of control parameters passed to `optim` for `Nelder-Mead'
 #' @return list with components:
@@ -188,10 +200,12 @@ mle_grad_wei_series_md_c1_c2_c3 <- function(
 #' - `message` convergence message
 #' - `hessian` estimated Hessian
 #' @importFrom stats optim
+#' @importFrom utils modifyList
 #' @export
 mle_nelder_wei_series_md_c1_c2_c3 <- function(
     df,
     theta0,
+    hessian = TRUE,
     ...,
     control = list()) {
 
@@ -203,7 +217,7 @@ mle_nelder_wei_series_md_c1_c2_c3 <- function(
         fn = function(theta) {
             loglik_wei_series_md_c1_c2_c3(df = df, theta = theta, ...)
         },
-        hessian = TRUE,
+        hessian = hessian,
         method = "Nelder-Mead",
         control = control)
 }
@@ -213,6 +227,7 @@ mle_nelder_wei_series_md_c1_c2_c3 <- function(
 #' right censoring.
 #' @param df data frame, right-censored lifetimes with masked component cause of failure
 #' @param theta0 initial parameter vector
+#' @param hessian logical, if `TRUE`, then the Hessian is estimated and returned
 #' @param ... additional arguments passed to `loglik_wei_series_md_c1_c2_c3`.
 #' @param control list of control parameters passed to `optim` for `SANN`
 #' @return list with components:
@@ -224,10 +239,12 @@ mle_nelder_wei_series_md_c1_c2_c3 <- function(
 #' - `message` convergence message
 #' - `hessian` estimated Hessian
 #' @importFrom stats optim
+#' @importFrom utils modifyList
 #' @export
 mle_sann_wei_series_md_c1_c2_c3 <- function(
     df,
     theta0,
+    hessian = TRUE,
     ...,
     control = list()) {
 
@@ -239,7 +256,7 @@ mle_sann_wei_series_md_c1_c2_c3 <- function(
         fn = function(theta) {
             loglik_wei_series_md_c1_c2_c3(df = df, theta = theta, ...)
         },
-        hessian = FALSE,
+        hessian = hessian,
         method = "SANN",
         control = control)
 }

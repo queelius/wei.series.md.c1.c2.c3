@@ -7,17 +7,16 @@ e.g., \verb{q1,...,qm} where \code{qj} is the probability that the jth component
 will be in the corresponding candidate set generated for that observation
 in the \code{md} table.}
 \usage{
-md_cand_sampler(df, control = list())
+md_cand_sampler(df, prob = "q", candset = "x")
 }
 \arguments{
 \item{df}{(masked) data frame}
 
-\item{control}{\itemize{
-\item \code{prob} - column prefix for component probabilities, defaults to
-\code{q}, e.g., \verb{q1, q2, q3}.
-\item \code{candset} - column prefix for candidate sets (as Boolean matrix),
-defaults to \code{x}, e.g., \verb{x1, x2, x3}.
-}}
+\item{prob}{column prefix for component probabilities, defaults to
+\code{q}, e.g., \verb{q1, q2, q3}.}
+
+\item{candset}{column prefix for candidate sets (as Boolean matrix),
+defaults to \code{x}, e.g., \verb{x1, x2, x3}.}
 }
 \description{
 Candidate set generator. Requires columns for component probabilities
