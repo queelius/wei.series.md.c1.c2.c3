@@ -51,7 +51,7 @@ md_bernoulli_cand_c1_c2_c3 <- function(
         if (!right_censoring_indicator %in% colnames(df)) {
             stop("right_censoring_indicator not in colnames(df)")
         }
-        Q[df[[right_censoring_indicator]], ] <- 0
+        Q[!df[[right_censoring_indicator]], ] <- 0
     }
 
     # remove in case it already has columns for q1,...,qm
