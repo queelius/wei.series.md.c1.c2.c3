@@ -77,3 +77,24 @@
 #' abs(sol$par - guo_weibull_series_md$mle) < 1e-4
 "guo_weibull_series_table_2"
 
+#' This is the example series system used in the paper.
+#' It has five components in series. It is based on the
+#' example in Guo, table 2, but with two new components
+#' added. Each component has approximately the same
+#' reliability, so that there is no clear weakest link.
+#' 
+#'  theta <- c(
+#'     k1 = 1.2576, lambda1 = 994.3661,
+#'     k2 = 1.1635, lambda2 = 908.9458,
+#'     k3 = 1.1308, lambda3 = 840.1141,
+#'     k4 = 1.1308, lambda4 = 940.1342,
+#'     k5 = 1.1308, lambda5 = 923.1631)
+#' 
+#' @format A list with the following components:
+#' \describe{
+#'   \item{shapes}{The shape parameters of the components}
+#'   \item{scales}{The scale parameters of the components}
+#'   \item{family}{The family of the likelihood model (weibull series)}
+#' }
+#' @seealso \code{\link{guo_weibull_series_md}}
+"alex_weibull_series"

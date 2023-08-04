@@ -46,17 +46,30 @@ fit <- mle_numerical(mle_lbfgsb_wei_series_md_c1_c2_c3(
     parscale = c(1, 1000, 1, 1000, 1, 1000))))
 
 cbind(confint(fit),
-  mle = params(fit),
-  true = guo_weibull_series_md$mle)
+  "fit" = params(fit),
+  "guo mle" = guo_weibull_series_md$mle)
 
-guo_weibull_series_md$loglike
-loglik_val(fit)
+# log-likelihood
+c("guo log-like" = guo_weibull_series_md$loglike, "fit log-like" = loglik_val(fit))
 ```
 
 We see that they are approximately the same.
 ```{r}
-# plot the data
-plot(guo_weibull_series_md$data)
+fit.shapes <- round(params(fit)[seq(1, length(params(fit)), 2)],digits=4)
+fit.scales <- round(params(fit)[seq(2, length(params(fit)), 2)],digits=4)
 
+wei_series_cause(1L:5L, shapes = alex_weibull_series$shapes,
+  scales = alex_weibull_series$scales)
 
+s <- 0
+for (i in 1:length(alex_weibull_series$shapes)) {
+  s <- s + wei_mttf(shape = alex_weibull_series$shapes[i],
+           scale = alex_weibull_series$scales[i])
+  cat("MTTF component ", i, ": ", wei_mttf(shape = alex_weibull_series$shapes[i],
+           scale = alex_weibull_series$scales[i]), "\n")
+}
+
+wei_series_mttf(shapes = alex_weibull_series$shapes,
+  scales = alex_weibull_series$scales)
 ```
+
