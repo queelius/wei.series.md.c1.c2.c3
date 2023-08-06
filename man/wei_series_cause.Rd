@@ -4,16 +4,20 @@
 \alias{wei_series_cause}
 \title{The component cause of failure for the Weibull series distribution.}
 \usage{
-wei_series_cause(k, t = NA, shapes, scales)
+wei_series_cause(k, shapes, scales, t = NA, mc = FALSE, n = 10000L)
 }
 \arguments{
 \item{k}{component index}
 
-\item{t}{lifetime of system, NA if unconditional distribution of K\link{i}}
-
 \item{shapes}{shape parameters for Weibull component lifetimes}
 
 \item{scales}{scale parameters for Weibull component lifetimes}
+
+\item{t}{lifetime of system, NA if unconditional distribution of K\link{i}}
+
+\item{mc}{logical, if TRUE, use monte carlo integration instead, which
+may be more robust for some parameters, particularly small
+shape parameters}
 }
 \value{
 the probability that component k is the cause of failure,

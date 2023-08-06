@@ -134,37 +134,6 @@ pwei_series <- Vectorize(function(t, shapes, scales) {
     ifelse(t < 0, 0, 1-exp(-sum((t/scales)^shapes)))
 }, vectorize.args = "t")
 
-#' The component cause of failure for the Weibull series distribution.
-#' 
-#' @param k component index
-#' @param t lifetime of system, NA if unconditional distribution of K[i]
-#' @param shapes shape parameters for Weibull component lifetimes
-#' @param scales scale parameters for Weibull component lifetimes
-#' @return the probability that component k is the cause of failure,
-#'         for the unconditional random variable K[i]
-#' @export
-wei_series_cause <- Vectorize(function(k, t = NA, shapes, scales) {
-    m <- length(shapes)
-    stopifnot(is.integer(k), k >= 1, k <= m, m == length(scales))
-    if (k < 1 || k > m) {
-        return(0)
-    }
-
-    if (!is.na(t)) {
-        if (t < 0) {
-            return(NA)
-        }
-        return(hazard_wei(t = t, shape = shapes[k], scale = scales[k]) /
-            hazard_wei_series(t = t, shapes = shapes, scales = scales))
-    } else {
-        return(integrate(function(t) {
-            dwei_series(t, shapes = shapes, scales = scales) *
-                hazard_wei(t = t, shape = shapes[k], scale = scales[k]) /
-                hazard_wei_series(t = t, shapes = shapes, scales = scales) },
-            0, Inf)$value)
-    }
-}, vectorize.args = "k")
-
 #' The mean time to failure for the Weibull series system.
 #' 
 #' @param shapes shape parameters for Weibull component lifetimes
@@ -176,3 +145,47 @@ wei_series_mttf <- function(shapes, scales) {
         all(shapes > 0), all(scales > 0))
     integrate(surv_wei_series, shapes = shapes, scales = scales, 0, Inf)$value
 }
+
+#' The component cause of failure for the Weibull series distribution.
+#' 
+#' @param k component index
+#' @param t lifetime of system, NA if unconditional distribution of K[i]
+#' @param shapes shape parameters for Weibull component lifetimes
+#' @param scales scale parameters for Weibull component lifetimes
+#' @param mc logical, if TRUE, use monte carlo integration instead, which
+#'           may be more robust for some parameters, particularly small
+#'           shape parameters
+#' @return the probability that component k is the cause of failure,
+#'         for the unconditional random variable K[i]
+#' @export
+wei_series_cause <- Vectorize(function(k, shapes, scales, t = NA, mc = FALSE, n = 10000L) {
+    m <- length(shapes)
+    k <- as.integer(k)
+    stopifnot(m == length(scales))
+    if (k < 1 || k > m) {
+        return(0)
+    }
+
+    if (!is.na(t)) {
+        if (t < 0) {
+            return(NA)
+        }
+        return(hazard_wei(t = t, shape = shapes[k], scale = scales[k]) /
+            hazard_wei_series(t = t, shapes = shapes, scales = scales))
+    } else {
+        # unconditional, E(h_j(T) / h(T))
+        if (mc) {
+            ts <- rwei_series(n, shapes, scales)
+            return(mean(x = 
+                hazard_wei(t = ts, shape = shapes[k], scale = scales[k]) /
+                hazard_wei_series(t = ts, shapes = shapes, scales = scales),
+                na.rm = TRUE))
+        } else {
+            return(integrate(function(t) {
+                dwei_series(t, shapes = shapes, scales = scales) *
+                    hazard_wei(t = t, shape = shapes[k], scale = scales[k]) /
+                    hazard_wei_series(t = t, shapes = shapes, scales = scales) },
+                0, Inf)$value)
+        }
+    }
+}, vectorize.args = "k")
