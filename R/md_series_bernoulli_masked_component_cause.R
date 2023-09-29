@@ -193,15 +193,19 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
 #' 
 #' In the likelihood model, we assume rather that
 #' C[i] | T[i] = t, K[i] = k satisfies certain assumptions.
-#' We're letting the data speak for itself, except for tractability
-#' we're discarding the conditional relation on T[i] and only
-#' keeping the conditional relation on K[i], whatever it happens to be.
-#' 
-#' We could discretize the component lifetimes and then sample
-#' from the empirical distribution of C[i] | T[i] = t, K[i] = k,
-#' but that would be a lot of work and we'd have to choose a
-#' discretization scheme. Instead, we'll just sample from the
+#' For tractability and efficiency, we're discarding the conditional relation on
+#' T[i] and only keeping the conditional relation on K[i] by using the
 #' empirical distribution of C[i] | K[i] = k.
+#' 
+#' If k is not known, then we can sample from the empirical distribution of
+#' C[i], which may still be reasonable, since by Condition 2,
+#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j} =
+#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j'}  for all j, j' in c[i],
+#' and so in general varying the component cause among the components
+#' in the candidate set does not change the probability of the candidate set.
+#' 
+#' If the model is more informed, then dropping the conditional relation on
+#' K[i] will lose information, and may bias the results in complex ways.
 #' 
 #' @param df masked data frame
 #' @param candset column prefix for candidate sets, defaults to `x`,
@@ -212,16 +216,14 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
 #' @importFrom md.tools md_decode_matrix
 #' @importFrom dplyr %>% starts_with select sample_n
 #' @export
-md_sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
+md_sample_candidates <- function(df, n, k = NA, cause = "k", candset = "x") {
     df[df[[cause]] == k,] %>% select(starts_with(candset)) %>%
         sample_n(size = n, replace = TRUE)
 }
 
-
-
-
 #' Conditional sampler C[i] | T[i] = t, K[i] = k
-#' We have a smoothing parameter that specifies the bin's width. 
+#' We have a smoothing parameter that specifies the bin's width for the
+#' discretization of the system lifetimes.
 #' 
 #' If component cause of failure is known, then we can sample from the
 #' conditional distribution of C[i] | T[i] = t, K[i] = k, otherwise
@@ -244,10 +246,10 @@ md_sample_candidates <- function(df, n, k, cause = "k", candset = "x") {
 #' want to sample C[i] | T[i] = t[i], K[i] = j, so this is fine.
 #'
 #' @param t observed lifetime, defaults to NA (unknown or unconditional)
-#' @param k component cause of failure, defaults to NA (unknown)
 #' @param df data frame (sample) that we used to estimate C[i] | T[i] = t[i], K[i] = j
 #'           `df` should only contain data in which the system failed, rather than being
 #'           right-censored.
+#' @param k component cause of failure, defaults to NA (unknown)
 #' @param nbins number of bins to use for discretizing the component lifetimes
 conditional_masked_cause <- function(n, df, t, k, nbins = 10) {
 
@@ -258,9 +260,9 @@ conditional_masked_cause <- function(n, df, t, k, nbins = 10) {
   # Find which bin t belongs to
   bin <- df$bins[df$t == t]
   
-  # Sample indices to sthat we know which rows in `df`
-  # to sample from
+  # Sample indices to so that we know which rows in `df` to sample from
   indices <- sample(df$bins == bin & df$k == k, n)
 
-  # look at the rows, 
+  # Sample from the empirical distribution of C[i] | T[i] = t[i], K[i] = j
+    df[indices, ] %>% select(starts_with("x")) %>% sample_n(n, replace = TRUE)
 }
