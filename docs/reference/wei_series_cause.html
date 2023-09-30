@@ -44,7 +44,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wei_series_cause</span><span class="op">(</span><span class="va">k</span>, t <span class="op">=</span> <span class="cn">NA</span>, <span class="va">shapes</span>, <span class="va">scales</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wei_series_cause</span><span class="op">(</span><span class="va">k</span>, <span class="va">shapes</span>, <span class="va">scales</span>, t <span class="op">=</span> <span class="cn">NA</span>, mc <span class="op">=</span> <span class="cn">FALSE</span>, n <span class="op">=</span> <span class="fl">10000L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -53,16 +53,22 @@
 <dd><p>component index</p></dd>
 
 
-<dt>t</dt>
-<dd><p>lifetime of system, NA if unconditional distribution of Ki</p></dd>
-
-
 <dt>shapes</dt>
 <dd><p>shape parameters for Weibull component lifetimes</p></dd>
 
 
 <dt>scales</dt>
 <dd><p>scale parameters for Weibull component lifetimes</p></dd>
+
+
+<dt>t</dt>
+<dd><p>lifetime of system, NA if unconditional distribution of Ki</p></dd>
+
+
+<dt>mc</dt>
+<dd><p>logical, if TRUE, use monte carlo integration instead, which
+may be more robust for some parameters, particularly small
+shape parameters</p></dd>
 
 </dl></div>
     <div id="value">

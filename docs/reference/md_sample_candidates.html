@@ -3,9 +3,9 @@
 data frame with component cause of failures shown. — md_sample_candidates • wei.series.md.c1.c2.c3</title><!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous"><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css"><script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Empirical sampler for Ci | Ki = k given a masked
 data frame with component cause of failures shown. — md_sample_candidates"><meta property="og:description" content="In the likelihood model, we assume rather that
 Ci | Ti = t, Ki = k satisfies certain assumptions.
-We're letting the data speak for itself, except for tractability
-we're discarding the conditional relation on Ti and only
-keeping the conditional relation on Ki, whatever it happens to be."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+For tractability and efficiency, we're discarding the conditional relation on
+Ti and only keeping the conditional relation on Ki by using the
+empirical distribution of Ci | Ki = k."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -49,13 +49,13 @@ data frame with component cause of failures shown.</h1>
     <div class="ref-description">
     <p>In the likelihood model, we assume rather that
 Ci | Ti = t, Ki = k satisfies certain assumptions.
-We're letting the data speak for itself, except for tractability
-we're discarding the conditional relation on Ti and only
-keeping the conditional relation on Ki, whatever it happens to be.</p>
+For tractability and efficiency, we're discarding the conditional relation on
+Ti and only keeping the conditional relation on Ki by using the
+empirical distribution of Ci | Ki = k.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">md_sample_candidates</span><span class="op">(</span><span class="va">df</span>, <span class="va">n</span>, <span class="va">k</span>, cause <span class="op">=</span> <span class="st">"k"</span>, candset <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">md_sample_candidates</span><span class="op">(</span><span class="va">df</span>, <span class="va">n</span>, k <span class="op">=</span> <span class="cn">NA</span>, cause <span class="op">=</span> <span class="st">"k"</span>, candset <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,11 +82,14 @@ distribution of Ci | Ki = k</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>We could discretize the component lifetimes and then sample
-from the empirical distribution of Ci | Ti = t, Ki = k,
-but that would be a lot of work and we'd have to choose a
-discretization scheme. Instead, we'll just sample from the
-empirical distribution of Ci | Ki = k.</p>
+    <p>If k is not known, then we can sample from the empirical distribution of
+Ci, which may still be reasonable, since by Condition 2,
+PrCi = ci | Ti = ti, Ki = j =
+PrCi = ci | Ti = ti, Ki = j'  for all j, j' in ci,
+and so in general varying the component cause among the components
+in the candidate set does not change the probability of the candidate set.</p>
+<p>If the model is more informed, then dropping the conditional relation on
+Ki will lose information, and may bias the results in complex ways.</p>
     </div>
 
   </div>
