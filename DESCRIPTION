@@ -1,6 +1,6 @@
 Package: wei.series.md.c1.c2.c3
 Title: Estimating Reliability of Weibull Components in Series from Masked Data
-Version: 0.0.0.9000
+Version: 0.9.0
 Authors@R: 
     person("Alexander", "Towell", , "lex@metafunctor.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6443-9897"))
