@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# wei.series.md.c1.c2.c3
+# R package: `wei.series.md.c1.c2.c3`
+
+A likelihood model for series systems with Weibull component lifetimes.
+Accounts for right-censoring and candidate sets indicative of masked
+failure causes.
 
 <!-- badges: start -->
 
 <!-- badges: end -->
-
-The goal of wei.series.md.c1.c2.c3 is to …
 
 ## Installation
 
