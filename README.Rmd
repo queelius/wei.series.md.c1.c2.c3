@@ -55,23 +55,31 @@ cbind(confint(fit),
 c("guo log-like" = guo_weibull_series_md$loglike, "fit log-like" = loglik_val(fit))
 ```
 
-We see that they are approximately the same.
+We see that they are approximately the same MLE fits.
+
+
 ```{r}
-fit.shapes <- round(params(fit)[seq(1, length(params(fit)), 2)],digits=4)
-fit.scales <- round(params(fit)[seq(2, length(params(fit)), 2)],digits=4)
+shapes <- params(fit)[seq(1, length(params(fit)), 2)]
+scales <- params(fit)[seq(2, length(params(fit)), 2)]
 
-wei_series_cause(1L:5L, shapes = alex_weibull_series$shapes,
-  scales = alex_weibull_series$scales)
+# make a 5x3 matrix, col1 = component j, col2 = component cause of probability for component j, and col 3 = mttf of component j
+cause <- wei_series_cause(1L:5L, shapes = shapes, scales = scales)
+comp_mttf <- numeric(length=5)
+for (i in 1:5) comp_mttf[i] <- wei_mttf(shape = shapes[i], scale = scales[i])
 
-s <- 0
-for (i in 1:length(alex_weibull_series$shapes)) {
-  s <- s + wei_mttf(shape = alex_weibull_series$shapes[i],
-           scale = alex_weibull_series$scales[i])
-  cat("MTTF component ", i, ": ", wei_mttf(shape = alex_weibull_series$shapes[i],
-           scale = alex_weibull_series$scales[i]), "\n")
-}
 
-wei_series_mttf(shapes = alex_weibull_series$shapes,
-  scales = alex_weibull_series$scales)
+wei_series_mttf(shapes = shapes, scales = scales)
 ```
 
+
+```{r}
+tq <- qwei_series(q = .825, shapes = shapes, scales = scales)
+surv_wei_series(p = tq, shapes = shapes, scales = scales)
+hazard_wei_series 
+pwei_series(seq(1, 5, 1), param(fit))
+wei_series_cause(1L:5L, shapes = shapes, scales = scales)
+wei_series_mttf(shapes = shapes, scales = scales)
+
+dwei_series 
+rwei_series(10L, shapes = fit.shapesparam(fit)
+```
