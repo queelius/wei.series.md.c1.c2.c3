@@ -7,6 +7,18 @@ A likelihood model for series systems with Weibull component lifetimes.
 Accounts for right-censoring and candidate sets indicative of masked
 failure causes.
 
+## Related Publication
+
+This library was developed to support the research presented in the
+following paper:
+
+  - “Reliability Estimation In Series Systems” -
+    [GitHub](https://github.com/queelius/reliability-estimation-in-series-systems)
+    | [Zenodo](https://doi.org/zenodo.XXXXX)
+
+For detailed explanation and the scientific background behind the
+methodologies implemented in this library, please refer to the paper.
+
 <!-- badges: start -->
 
 <!-- badges: end -->
