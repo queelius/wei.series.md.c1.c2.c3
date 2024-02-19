@@ -2,10 +2,7 @@
 % Please edit documentation in R/md_series_bernoulli_masked_component_cause.R
 \name{md_cand_sampler}
 \alias{md_cand_sampler}
-\title{Candidate set generator. Requires columns for component probabilities
-e.g., \verb{q1,...,qm} where \code{qj} is the probability that the jth component
-will be in the corresponding candidate set generated for that observation
-in the \code{md} table.}
+\title{Random sampler for candidate sets given a data frame.}
 \usage{
 md_cand_sampler(df, prob = "q", candset = "x")
 }

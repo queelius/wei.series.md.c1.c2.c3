@@ -1,3 +1,5 @@
+#' Masked Data Model for Series Systems with Component Cause of Failure
+#' 
 #' Bernoulli candidate set model is a particular type of *uninformed* model.
 #' Note that we do not generate candidate sets with this function. See
 #' `md_cand_sampler` for that.
@@ -57,6 +59,8 @@ md_bernoulli_cand_c1_c2_c3 <- function(
         md_mark_latent(paste0(prob, 1:m))
 }
 
+#' Random sampler for candidate sets given a data frame.
+#' 
 #' Candidate set generator. Requires columns for component probabilities
 #' e.g., `q1,...,qm` where `qj` is the probability that the jth component
 #' will be in the corresponding candidate set generated for that observation
@@ -94,7 +98,7 @@ md_cand_sampler <- function(df, prob = "q", candset = "x") {
     df %>% bind_cols(md_encode_matrix(X, candset))
 }
 
-#' Check if a masked data frame is identifiable.
+#' Check if a masked data frame is identifiable. (UNTESTED)
 #'
 #' We want to make sure that the right-censored, masked component cause of failure
 #' data has enough information in it for the likelihood model to be uniquely
@@ -164,9 +168,13 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
     return(reasons)
 }
 
-
-#' Add info about component cause of failure to a
-#' masked data frame with latent components available.
+#' Add latent component cause of failure to a masked data frame
+#' 
+#' Add info about component cause of failure to a masked data frame with latent
+#' components available. This is normally only posible in a simulation
+#' setting, where we know the true component cause of failure, although such
+#' information may also be carefully gathered in a real-world setting.
+#' 
 #' @param df masked data frame
 #' @param comp column prefix for component lifetimes, defaults to `t`,
 #' @return a data frame with a new `k` column
@@ -184,8 +192,7 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
         md_mark_latent("k")
 }
 
-#' Empirical sampler for C[i] | K[i] = k given a masked
-#' data frame with component cause of failures shown.
+#' Empirical candidate set sampler when component cause of failure is known. (UNTESTED)
 #'
 #' In the likelihood model, we assume rather that
 #' C[i] | T[i] = t, K[i] = k satisfies certain assumptions.
@@ -204,6 +211,8 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
 #' K[i] will lose information, and may bias the results in complex ways.
 #'
 #' @param df masked data frame
+#' @param n number of candidate sets to sample
+#' @param k component cause of failure, defaults to NA (unknown)
 #' @param candset column prefix for candidate sets, defaults to `x`,
 #'                e.g., `x1, x2, x3`.
 #' @param cause column name for component cause of failure, defaults to `k`
@@ -218,6 +227,9 @@ md_sample_candidates <- function(df, n, k = NA, cause = "k", candset = "x") {
         sample_n(size = n, replace = TRUE)
 }
 
+#' Conditional candidate set sampler when component cause of failure is known
+#' and the system lifetime is observed. (UNTESTED)
+#' 
 #' Conditional sampler C[i] | T[i] = t, K[i] = k
 #' We have a smoothing parameter that specifies the bin's width for the
 #' discretization of the system lifetimes.

@@ -2,13 +2,16 @@
 % Please edit documentation in R/md_series_bernoulli_masked_component_cause.R
 \name{md_sample_candidates}
 \alias{md_sample_candidates}
-\title{Empirical sampler for C\link{i} | K\link{i} = k given a masked
-data frame with component cause of failures shown.}
+\title{Empirical candidate set sampler when component cause of failure is known. (UNTESTED)}
 \usage{
 md_sample_candidates(df, n, k = NA, cause = "k", candset = "x")
 }
 \arguments{
 \item{df}{masked data frame}
+
+\item{n}{number of candidate sets to sample}
+
+\item{k}{component cause of failure, defaults to NA (unknown)}
 
 \item{cause}{column name for component cause of failure, defaults to \code{k}}
 

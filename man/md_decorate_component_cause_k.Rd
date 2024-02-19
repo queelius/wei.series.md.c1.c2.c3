@@ -2,8 +2,7 @@
 % Please edit documentation in R/md_series_bernoulli_masked_component_cause.R
 \name{md_decorate_component_cause_k}
 \alias{md_decorate_component_cause_k}
-\title{Add info about component cause of failure to a
-masked data frame with latent components available.}
+\title{Add latent component cause of failure to a masked data frame}
 \usage{
 md_decorate_component_cause_k(df, comp = "t")
 }
@@ -16,6 +15,8 @@ md_decorate_component_cause_k(df, comp = "t")
 a data frame with a new \code{k} column
 }
 \description{
-Add info about component cause of failure to a
-masked data frame with latent components available.
+Add info about component cause of failure to a masked data frame with latent
+components available. This is normally only posible in a simulation
+setting, where we know the true component cause of failure, although such
+information may also be carefully gathered in a real-world setting.
 }

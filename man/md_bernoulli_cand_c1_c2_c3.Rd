@@ -2,9 +2,7 @@
 % Please edit documentation in R/md_series_bernoulli_masked_component_cause.R
 \name{md_bernoulli_cand_c1_c2_c3}
 \alias{md_bernoulli_cand_c1_c2_c3}
-\title{Bernoulli candidate set model is a particular type of \emph{uninformed} model.
-Note that we do not generate candidate sets with this function. See
-\code{md_cand_sampler} for that.}
+\title{Masked Data Model for Series Systems with Component Cause of Failure}
 \usage{
 md_bernoulli_cand_c1_c2_c3(
   df,
@@ -33,6 +31,11 @@ observed. If NULL, then no right-censoring is assumed. Defaults to
 \code{delta}.}
 }
 \description{
+Bernoulli candidate set model is a particular type of \emph{uninformed} model.
+Note that we do not generate candidate sets with this function. See
+\code{md_cand_sampler} for that.
+}
+\details{
 This model satisfies conditions C1, C2, and C3.
 The failed component will be in the corresponding candidate set with
 probability 1, and the remaining components will be in the candidate set

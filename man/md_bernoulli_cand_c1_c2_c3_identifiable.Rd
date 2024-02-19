@@ -2,7 +2,7 @@
 % Please edit documentation in R/md_series_bernoulli_masked_component_cause.R
 \name{md_bernoulli_cand_c1_c2_c3_identifiable}
 \alias{md_bernoulli_cand_c1_c2_c3_identifiable}
-\title{Check if a masked data frame is identifiable.}
+\title{Check if a masked data frame is identifiable. (UNTESTED)}
 \usage{
 md_bernoulli_cand_c1_c2_c3_identifiable(df, candset = "x")
 }

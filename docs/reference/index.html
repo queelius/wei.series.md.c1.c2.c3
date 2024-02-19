@@ -48,9 +48,8 @@
       </tr><tr><td>
           <p><code><a href="conditional_masked_cause.html">conditional_masked_cause()</a></code> </p>
         </td>
-        <td><p>Conditional sampler Ci | Ti = t, Ki = k
-We have a smoothing parameter that specifies the bin's width for the
-discretization of the system lifetimes.</p></td>
+        <td><p>Conditional candidate set sampler when component cause of failure is known
+and the system lifetime is observed. (UNTESTED)</p></td>
       </tr><tr><td>
           <p><code><a href="dwei_series.html">dwei_series()</a></code> </p>
         </td>
@@ -91,30 +90,23 @@ that satisfy conditions C1, C2, and C3 and right-censored data.</p></td>
       </tr><tr><td>
           <p><code><a href="md_bernoulli_cand_c1_c2_c3.html">md_bernoulli_cand_c1_c2_c3()</a></code> </p>
         </td>
-        <td><p>Bernoulli candidate set model is a particular type of <em>uninformed</em> model.
-Note that we do not generate candidate sets with this function. See
-<code>md_cand_sampler</code> for that.</p></td>
+        <td><p>Masked Data Model for Series Systems with Component Cause of Failure</p></td>
       </tr><tr><td>
           <p><code><a href="md_bernoulli_cand_c1_c2_c3_identifiable.html">md_bernoulli_cand_c1_c2_c3_identifiable()</a></code> </p>
         </td>
-        <td><p>Check if a masked data frame is identifiable.</p></td>
+        <td><p>Check if a masked data frame is identifiable. (UNTESTED)</p></td>
       </tr><tr><td>
           <p><code><a href="md_cand_sampler.html">md_cand_sampler()</a></code> </p>
         </td>
-        <td><p>Candidate set generator. Requires columns for component probabilities
-e.g., <code>q1,...,qm</code> where <code>qj</code> is the probability that the jth component
-will be in the corresponding candidate set generated for that observation
-in the <code>md</code> table.</p></td>
+        <td><p>Random sampler for candidate sets given a data frame.</p></td>
       </tr><tr><td>
           <p><code><a href="md_decorate_component_cause_k.html">md_decorate_component_cause_k()</a></code> </p>
         </td>
-        <td><p>Add info about component cause of failure to a
-masked data frame with latent components available.</p></td>
+        <td><p>Add latent component cause of failure to a masked data frame</p></td>
       </tr><tr><td>
           <p><code><a href="md_sample_candidates.html">md_sample_candidates()</a></code> </p>
         </td>
-        <td><p>Empirical sampler for Ci | Ki = k given a masked
-data frame with component cause of failures shown.</p></td>
+        <td><p>Empirical candidate set sampler when component cause of failure is known. (UNTESTED)</p></td>
       </tr><tr><td>
           <p><code><a href="md_series_lifetime_right_censoring.html">md_series_lifetime_right_censoring()</a></code> </p>
         </td>
