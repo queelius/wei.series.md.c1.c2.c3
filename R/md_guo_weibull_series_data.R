@@ -78,18 +78,23 @@
 #' abs(sol$par - guo_weibull_series_md$mle) < 1e-4
 "guo_weibull_series_table_2"
 
-#' This is the example series system used in the paper.
+#' Base Series System for Simulation Study
+#' 
+#' The "base" system in our simulation study in the paper
+#' "Reliability Estimation in Series Systems".
+#' 
 #' It has five components in series. It is based on the
 #' example in Guo, table 2, but with two new components
 #' added. Each component has approximately the same
 #' reliability, so that there is no clear weakest link.
-#' 
+#' The series system parameter vector is given by:
+#' ```
 #' theta = (shape1 = 1.2576, scale1 = 994.3661,
 #'          shape2 = 1.1635, scale2 = 908.9458,
 #'          shape3 = 1.1308, scale3 = 840.1141,
 #'          shape4 = 1.1802, scale4 = 940.1342,
 #'          shape5 = 1.2034, scale5 = 923.1631)
-#' 
+#' ```
 #' @format A list with the following components:
 #' \describe{
 #'   \item{theta}{The shape and scale parameters of the components combined}
@@ -98,4 +103,5 @@
 #'   \item{family}{The family of the likelihood model (weibull series)}
 #' }
 #' @seealso \code{\link{guo_weibull_series_md}}
+#' @seealso https://github.com/queelius/reliability-estimation-in-series-systems
 "alex_weibull_series"

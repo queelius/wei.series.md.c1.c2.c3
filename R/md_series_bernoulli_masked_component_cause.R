@@ -5,7 +5,7 @@
 #' This model satisfies conditions C1, C2, and C3.
 #' The failed component will be in the corresponding candidate set with
 #' probability 1, and the remaining components will be in the candidate set
-#' with probability `p` (the same probability for each component). `p` 
+#' with probability `p` (the same probability for each component). `p`
 #' may be different for each system, but it is assumed to be the same for
 #' each component within a system, so `p` can be a vector such that the
 #' length of `p` is the number of systems in the data set (with recycling
@@ -27,10 +27,7 @@
 #' @importFrom dplyr %>% bind_cols
 #' @export
 md_bernoulli_cand_c1_c2_c3 <- function(
-    df,
-    p,
-    prob = "q",
-    comp = "t",
+    df, p, prob = "q", comp = "t",
     right_censoring_indicator = "delta") {
 
     n <- nrow(df)
@@ -47,7 +44,6 @@ md_bernoulli_cand_c1_c2_c3 <- function(
     Q[cbind(1:n, apply(Tm, 1, which.min))] <- 1
 
     if (!is.null(right_censoring_indicator)) {
-
         if (!right_censoring_indicator %in% colnames(df)) {
             stop("right_censoring_indicator not in colnames(df)")
         }
@@ -55,9 +51,10 @@ md_bernoulli_cand_c1_c2_c3 <- function(
     }
 
     # remove in case it already has columns for q1,...,qm
-    df[ , paste0(prob, 1:m)] <- NULL
-    df %>% bind_cols(md_encode_matrix(Q, prob)) %>%
-           md_mark_latent(paste0(prob, 1:m))
+    df[, paste0(prob, 1:m)] <- NULL
+    df %>%
+        bind_cols(md_encode_matrix(Q, prob)) %>%
+        md_mark_latent(paste0(prob, 1:m))
 }
 
 #' Candidate set generator. Requires columns for component probabilities
@@ -75,7 +72,6 @@ md_bernoulli_cand_c1_c2_c3 <- function(
 #' @importFrom stats runif
 #' @export
 md_cand_sampler <- function(df, prob = "q", candset = "x") {
-
     if (!is.data.frame(df)) {
         stop("df must be a data frame")
     }
@@ -91,7 +87,7 @@ md_cand_sampler <- function(df, prob = "q", candset = "x") {
         stop("No component probabilities found")
     }
 
-    X <- matrix(NA, nrow=n, ncol=m)
+    X <- matrix(NA, nrow = n, ncol = m)
     for (i in 1:n) {
         X[i, ] <- runif(m) <= Q[i, ]
     }
@@ -99,7 +95,7 @@ md_cand_sampler <- function(df, prob = "q", candset = "x") {
 }
 
 #' Check if a masked data frame is identifiable.
-#' 
+#'
 #' We want to make sure that the right-censored, masked component cause of failure
 #' data has enough information in it for the likelihood model to be uniquely
 #' identified.
@@ -112,7 +108,6 @@ md_cand_sampler <- function(df, prob = "q", candset = "x") {
 #' @importFrom md.tools md_decode_matrix
 #' @export
 md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
-
     C <- md_decode_matrix(df, candset)
     if (is.null(C)) {
         stop("No candidate set variables found")
@@ -179,34 +174,35 @@ md_bernoulli_cand_c1_c2_c3_identifiable <- function(df, candset = "x") {
 #' @importFrom dplyr %>% bind_cols
 #' @export
 md_decorate_component_cause_k <- function(df, comp = "t") {
-
     Tm <- md_decode_matrix(df, comp)
     if (is.null(Tm)) {
         stop("No component lifetime variables found")
     }
     K <- apply(Tm, 1, which.min)
-    df %>% bind_cols(k = K) %>% md_mark_latent("k")
+    df %>%
+        bind_cols(k = K) %>%
+        md_mark_latent("k")
 }
 
 #' Empirical sampler for C[i] | K[i] = k given a masked
 #' data frame with component cause of failures shown.
-#' 
+#'
 #' In the likelihood model, we assume rather that
 #' C[i] | T[i] = t, K[i] = k satisfies certain assumptions.
 #' For tractability and efficiency, we're discarding the conditional relation on
 #' T[i] and only keeping the conditional relation on K[i] by using the
 #' empirical distribution of C[i] | K[i] = k.
-#' 
+#'
 #' If k is not known, then we can sample from the empirical distribution of
 #' C[i], which may still be reasonable, since by Condition 2,
 #' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j} =
 #' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j'}  for all j, j' in c[i],
 #' and so in general varying the component cause among the components
 #' in the candidate set does not change the probability of the candidate set.
-#' 
+#'
 #' If the model is more informed, then dropping the conditional relation on
 #' K[i] will lose information, and may bias the results in complex ways.
-#' 
+#'
 #' @param df masked data frame
 #' @param candset column prefix for candidate sets, defaults to `x`,
 #'                e.g., `x1, x2, x3`.
@@ -217,28 +213,29 @@ md_decorate_component_cause_k <- function(df, comp = "t") {
 #' @importFrom dplyr %>% starts_with select sample_n
 #' @export
 md_sample_candidates <- function(df, n, k = NA, cause = "k", candset = "x") {
-    df[df[[cause]] == k,] %>% select(starts_with(candset)) %>%
+    df[df[[cause]] == k, ] %>%
+        select(starts_with(candset)) %>%
         sample_n(size = n, replace = TRUE)
 }
 
 #' Conditional sampler C[i] | T[i] = t, K[i] = k
 #' We have a smoothing parameter that specifies the bin's width for the
 #' discretization of the system lifetimes.
-#' 
+#'
 #' If component cause of failure is known, then we can sample from the
 #' conditional distribution of C[i] | T[i] = t, K[i] = k, otherwise
 #' we can sample from the empirical distribution of C[i] | T[i] = t[i],
 #' which may still be reasonable, since by Condition 2,
-#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j} = 
+#' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j} =
 #' Pr{C[i] = c[i] | T[i] = t[i], K[i] = j'}  for all j, j' in c[i].
 #' Of course, we may violate Condition 1, Pr{K[i] in C[i]} = 1.
-#' 
+#'
 #' Note that if |c[i]| = 1, then we can sample from the empirical
 #' distribution of C[i] | T[i] = t[i], K[i] = j, since there is only
 #' one possible value for K[i], K[i] = j if c[i] = {j}. Otherwise,
 #' if |c[i]| > 1, and we don't know the component cause of failure,
 #' then we can sample from the empirical distribution of C[i] | T[i] = t[i].
-#' 
+#'
 #' In the semi-parametric bootstrap, we generate the samples ourselves
 #' from our estimate of theta, so we can sample from the conditional
 #' distribution of C[i] | T[i] = t[i], K[i] = j, since we know the
@@ -252,17 +249,21 @@ md_sample_candidates <- function(df, n, k = NA, cause = "k", candset = "x") {
 #' @param k component cause of failure, defaults to NA (unknown)
 #' @param nbins number of bins to use for discretizing the component lifetimes
 conditional_masked_cause <- function(n, df, t, k, nbins = 10) {
+    df <- df[df$delta, ] %>% mutate(
+        bins = cut(t,
+            breaks = quantile(t, probs = seq(0, 1, 1 / nbins)),
+            include.lowest = TRUE
+        )
+    )
 
-  df <- df[df$delta, ] %>% mutate(
-    bins = cut(t, breaks = quantile(t, probs = seq(0, 1, 1/nbins)),
-        include.lowest = TRUE))
-  
-  # Find which bin t belongs to
-  bin <- df$bins[df$t == t]
-  
-  # Sample indices to so that we know which rows in `df` to sample from
-  indices <- sample(df$bins == bin & df$k == k, n)
+    # Find which bin t belongs to
+    bin <- df$bins[df$t == t]
 
-  # Sample from the empirical distribution of C[i] | T[i] = t[i], K[i] = j
-    df[indices, ] %>% select(starts_with("x")) %>% sample_n(n, replace = TRUE)
+    # Sample indices to so that we know which rows in `df` to sample from
+    indices <- sample(df$bins == bin & df$k == k, n)
+
+    # Sample from the empirical distribution of C[i] | T[i] = t[i], K[i] = j
+    df[indices, ] %>%
+        select(starts_with("x")) %>%
+        sample_n(n, replace = TRUE)
 }

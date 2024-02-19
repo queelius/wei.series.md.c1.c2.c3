@@ -3,11 +3,7 @@
 \docType{data}
 \name{alex_weibull_series}
 \alias{alex_weibull_series}
-\title{This is the example series system used in the paper.
-It has five components in series. It is based on the
-example in Guo, table 2, but with two new components
-added. Each component has approximately the same
-reliability, so that there is no clear weakest link.}
+\title{Base Series System for Simulation Study}
 \format{
 A list with the following components:
 \describe{
@@ -21,13 +17,26 @@ A list with the following components:
 alex_weibull_series
 }
 \description{
-theta = (shape1 = 1.2576, scale1 = 994.3661,
-shape2 = 1.1635, scale2 = 908.9458,
-shape3 = 1.1308, scale3 = 840.1141,
-shape4 = 1.1802, scale4 = 940.1342,
-shape5 = 1.2034, scale5 = 923.1631)
+The "base" system in our simulation study in the paper
+"Reliability Estimation in Series Systems".
+}
+\details{
+It has five components in series. It is based on the
+example in Guo, table 2, but with two new components
+added. Each component has approximately the same
+reliability, so that there is no clear weakest link.
+The series system parameter vector is given by:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{theta = (shape1 = 1.2576, scale1 = 994.3661,
+         shape2 = 1.1635, scale2 = 908.9458,
+         shape3 = 1.1308, scale3 = 840.1141,
+         shape4 = 1.1802, scale4 = 940.1342,
+         shape5 = 1.2034, scale5 = 923.1631)
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link{guo_weibull_series_md}}
+
+https://github.com/queelius/reliability-estimation-in-series-systems
 }
 \keyword{datasets}
