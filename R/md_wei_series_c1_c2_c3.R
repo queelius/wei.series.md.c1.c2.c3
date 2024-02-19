@@ -1,25 +1,3 @@
-#' Likelihood model for Weibull series systems from masked data.
-#'
-#' Functions include the log-likelihood, score, and hessian of the log-likelihood
-#' functions. We provide analytical solutions to the log-likelihood and score
-#' functions. The hessian is computed numerically by taking the Jacobian of the
-#' score function using the `jacobian` function in the R package `numDeriv`.
-#' 
-#' The likelihood model is given by two types of data:
-#' 1. Masked component cause of failure data with exact failure time
-#' 2. Right-censored system lifetime data
-#' 
-#' Masked component data approximately satisfies the following conditions:
-#' C1: Pr(K in C) = 1
-#' C2: Pr(C=c | K=j, T=t) = Pr(C=c | K=j', T=t)
-#'     for any j, j' in c.
-#' C3: masking probabilities are independent of theta
-#' 
-#' @author Alex Towell
-#' @name Weibull series MLE
-#' @keywords weibull, distribution, series, statistics, masked data
-NULL
-
 #' Generates a log-likelihood function for a Weibull series system with respect
 #' to parameter `theta` (shape, scale) for masked data with candidate sets
 #' that satisfy conditions C1, C2, and C3 and right-censored data.

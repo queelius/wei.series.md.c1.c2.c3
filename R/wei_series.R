@@ -1,14 +1,3 @@
-#' Weibull series system
-#'
-#' This file contains functions related to the Weibull series distribution.
-#' Functions include simulation, pdf, cdf, quantile, and other related
-#' functions for the Weibull series distribution.
-#' 
-#' @author Alex Towell
-#' @name Weibull series
-#' @keywords weibull, distribution, series, statistics
-NULL
-
 #' Quantile function (inverse of the cdf).
 #' By definition, the quantile p * 100% for a strictly monotonically increasing
 #' cdf F is the value t that satisfies \code{F(t) - p = 0}.

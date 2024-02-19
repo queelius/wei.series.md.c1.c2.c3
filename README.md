@@ -14,7 +14,6 @@ following paper:
 
   - “Reliability Estimation In Series Systems” -
     [GitHub](https://github.com/queelius/reliability-estimation-in-series-systems)
-    | [Zenodo](https://doi.org/zenodo.XXXXX)
 
 For detailed explanation and the scientific background behind the
 methodologies implemented in this library, please refer to the paper.
@@ -25,12 +24,12 @@ methodologies implemented in this library, please refer to the paper.
 
 ## Installation
 
-You can install the development version of wei.series.md.c1.c2.c3 from
-[GitHub](https://github.com/) with:
+You can install the development version of `wei.series.md.c1.c2.c3` from
+[GitHub](https://github.com/queelius/wei.series.md.c1.c2.c3) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("queelius/wei.series.md.c1.c2.c3")
+#devtools::install_github("queelius/wei.series.md.c1.c2.c3")
 ```
 
 ``` r
@@ -41,6 +40,8 @@ library(algebraic.dist)
 library(algebraic.mle)
 library(wei.series.md.c1.c2.c3)
 ```
+
+## Examples
 
 ``` r
 # fit the model
@@ -68,30 +69,118 @@ c("guo log-like" = guo_weibull_series_md$loglike, "fit log-like" = loglik_val(fi
 #>    -228.6851    -228.6851
 ```
 
-We see that they are approximately the same.
+We see that they are approximately the same MLE fits.
 
 ``` r
-fit.shapes <- round(params(fit)[seq(1, length(params(fit)), 2)],digits=4)
-fit.scales <- round(params(fit)[seq(2, length(params(fit)), 2)],digits=4)
+shapes <- params(fit)[seq(1, length(params(fit)), 2)]
+scales <- params(fit)[seq(2, length(params(fit)), 2)]
+data.frame(
+  "Component Cause" = wei_series_cause(1L:3L, shapes = shapes, scales = scales),
+  "Component MTTF" = wei_mttf(shape = shapes, scale = scales))
+#>   Component.Cause Component.MTTF
+#> 1       0.2862058       924.8697
+#> 2       0.3376112       862.1766
+#> 3       0.3761829       803.5490
 
-wei_series_cause(1L:5L, shapes = alex_weibull_series$shapes,
-  scales = alex_weibull_series$scales)
-#> [1] 0.1685628 0.2069114 0.2337547 0.1955561 0.1952150
-
-s <- 0
-for (i in 1:length(alex_weibull_series$shapes)) {
-  s <- s + wei_mttf(shape = alex_weibull_series$shapes[i],
-           scale = alex_weibull_series$scales[i])
-  cat("MTTF component ", i, ": ", wei_mttf(shape = alex_weibull_series$shapes[i],
-           scale = alex_weibull_series$scales[i]), "\n")
-}
-#> MTTF component  1 :  924.8693 
-#> MTTF component  2 :  862.1568 
-#> MTTF component  3 :  803.5639 
-#> MTTF component  4 :  888.237 
-#> MTTF component  5 :  867.7484
-
-wei_series_mttf(shapes = alex_weibull_series$shapes,
-  scales = alex_weibull_series$scales)
-#> [1] 222.8836
+cat("System MTTF: ", wei_series_mttf(shapes = shapes, scales = scales))
+#> System MTTF:  339.3773
 ```
+
+``` r
+(tq <- qwei_series(p = .825, shapes = shapes, scales = scales))
+#> [1] 575.704
+surv_wei_series(t = tq, shapes = shapes, scales = scales)
+#> [1] 0.175
+rwei_series(10L, shapes =shapes, scales = scales)
+#>  [1]  95.53603 100.25772 282.05837 126.16159 425.90422  49.83648 130.02596
+#>  [8] 742.51530  64.97421 147.28431
+pwei_series(seq(1, 5, 1), shapes = shapes, scales = scales)
+#> [1] 0.001024090 0.002293359 0.003675757 0.005136821 0.006658907
+```
+
+## Brief Overview
+
+This package implements a likelihood model for Weibull series systems
+from masked data, including functions for the log-likelihood, score, and
+hessian of the log-likelihood. Analytical solutions are provided for the
+log-likelihood and score functions, while the hessian is computed
+numerically. The package is designed to handle two types of data: masked
+component cause of failure data with exact failure time and
+right-censored system lifetime data.
+
+The masked component data should approximately satisfy certain
+conditions. The conditions are as follows:
+
+#### Condition 1
+
+The component cause of failure is in the candidate set.
+
+#### Condition 2
+
+When we condition on the component cause of failure being any particular
+cause in the canidate set and and the time of failure, the probability
+of the given candidate set does not vary as we vary the component cause
+of failure.
+
+#### Condition 3
+
+The masking probabilities are independent of the series system lifetime
+parameter vector.
+
+### API
+
+As a loglikelihood model, we provide the following functions:
+
+  - `loglik_wei_series_md_c1_c2_c3` for the log-likelihood
+  - `score_wei_series_md_c1_c2_c3` for the score function
+  - `hessian_wei_series_md_c1_c2_c3` for the hessian of the
+    log-likelihood
+
+For convenience, we also provide some wrappers around the `optim`
+function to solve for the maximum likelihood estimates (MLE) of the
+shape and scale parameters using the Nelder-Mead and simulated annealing
+algorithms:
+
+  - `mle_nelder_wei_series_md_c1_c2_c3` for the Nelder-Mead algorithm
+  - `mle_sann_wei_series_md_c1_c2_c3` for the simulated annealing
+    algorithm
+
+Since we base some of our results and analysis on Guo, Szidarovszky, and
+Niu (2013), we provide the data set from their paper, along with the
+maximum likelihood estimates of the shape and scale parameters for the
+Weibull series system. We also provide a function to solve for the MLE
+using the Nelder-Mead algorithm:
+
+  - `guo_weibull_series_md` for a model that generates data similar to
+    Guo, Szidarovszky, and Niu (2013)
+  - `guo_weibull_series_table_2` for the data from Table 2 in Guo,
+    Szidarovszky, and Niu (2013)
+
+We also provide a host of supporting functions and data tables, e.g., we
+provide Weibull series system distribution function that honors the
+established conventions in R:
+
+  - `dwei_series` for the probability density function
+  - `pwei_series` for the cumulative distribution function
+  - `qwei_series` for the quantile function
+  - `rwei_series` for random number generation
+
+We also provide functions to compute the mean time to failure and the
+component cause of failure for the Weibull series distribution, along
+with the hazard and survival functions:
+
+  - `wei_series_mttf` for the mean time to failure
+  - `wei_series_cause` for the component cause of failure
+  - `hazard_wei_series` for the hazard function
+  - `surv_wei_series` for the survival function (this is normally done
+    by passing lower.tail = FALSE to `pwei_series` but we provide a
+    function)
+
+Finally, we also provide some functions for working with the components
+of the Weibull series system, e.g., we provide a function to compute the
+hazard function for the Weibull component lifetimes:
+
+  - `hazard_wei` for the hazard function of the Weibull component
+    lifetimes
+  - `wei_mttf` for the mean time to failure of the Weibull component
+    lifetimes

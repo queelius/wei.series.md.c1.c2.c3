@@ -64,7 +64,7 @@
 <h2 id="related-publication">Related Publication<a class="anchor" aria-label="anchor" href="#related-publication"></a>
 </h2>
 <p>This library was developed to support the research presented in the following paper:</p>
-<ul><li>“Reliability Estimation In Series Systems” - <a href="https://github.com/queelius/reliability-estimation-in-series-systems" class="external-link">GitHub</a> | <a href="https://doi.org/zenodo.XXXXX" class="external-link">Zenodo</a>
+<ul><li>“Reliability Estimation In Series Systems” - <a href="https://github.com/queelius/reliability-estimation-in-series-systems" class="external-link">GitHub</a>
 </li></ul>
 <p>For detailed explanation and the scientific background behind the methodologies implemented in this library, please refer to the paper.</p>
 <!-- badges: start --><!-- badges: end -->
@@ -72,10 +72,10 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of wei.series.md.c1.c2.c3 from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of <code>wei.series.md.c1.c2.c3</code> from <a href="https://github.com/queelius/wei.series.md.c1.c2.c3" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"queelius/wei.series.md.c1.c2.c3"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">#devtools::install_github("queelius/wei.series.md.c1.c2.c3")</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/queelius/algebraic.dist" class="external-link">algebraic.dist</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'algebraic.dist':</span></span>
@@ -83,6 +83,10 @@
 <span><span class="co">#&gt;   print.dist stats</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/queelius/algebraic.mle" class="external-link">algebraic.mle</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">wei.series.md.c1.c2.c3</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># fit the model</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://queelius.github.io/algebraic.mle/reference/mle_numerical.html" class="external-link">mle_numerical</a></span><span class="op">(</span><span class="fu"><a href="reference/mle_lbfgsb_wei_series_md_c1_c2_c3.html">mle_lbfgsb_wei_series_md_c1_c2_c3</a></span><span class="op">(</span></span>
@@ -107,31 +111,107 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"guo log-like"</span> <span class="op">=</span> <span class="va">guo_weibull_series_md</span><span class="op">$</span><span class="va">loglike</span>, <span class="st">"fit log-like"</span> <span class="op">=</span> <span class="fu"><a href="https://queelius.github.io/algebraic.mle/reference/loglik_val.html" class="external-link">loglik_val</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; guo log-like fit log-like </span></span>
 <span><span class="co">#&gt;    -228.6851    -228.6851</span></span></code></pre></div>
-<p>We see that they are approximately the same.</p>
+<p>We see that they are approximately the same MLE fits.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit.shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>,digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">fit.scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>,digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://queelius.github.io/algebraic.dist/reference/params.html" class="external-link">params</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Component Cause"</span> <span class="op">=</span> <span class="fu"><a href="reference/wei_series_cause.html">wei_series_cause</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">:</span><span class="fl">3L</span>, shapes <span class="op">=</span> <span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Component MTTF"</span> <span class="op">=</span> <span class="fu"><a href="reference/wei_mttf.html">wei_mttf</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">shapes</span>, scale <span class="op">=</span> <span class="va">scales</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Component.Cause Component.MTTF</span></span>
+<span><span class="co">#&gt; 1       0.2862058       924.8697</span></span>
+<span><span class="co">#&gt; 2       0.3376112       862.1766</span></span>
+<span><span class="co">#&gt; 3       0.3761829       803.5490</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/wei_series_cause.html">wei_series_cause</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">:</span><span class="fl">5L</span>, shapes <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">shapes</span>,</span>
-<span>  scales <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">scales</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.1685628 0.2069114 0.2337547 0.1955561 0.1952150</span></span>
-<span></span>
-<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">shapes</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">+</span> <span class="fu"><a href="reference/wei_mttf.html">wei_mttf</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">shapes</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
-<span>           scale <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">scales</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"MTTF component "</span>, <span class="va">i</span>, <span class="st">": "</span>, <span class="fu"><a href="reference/wei_mttf.html">wei_mttf</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">shapes</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
-<span>           scale <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">scales</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="co">#&gt; MTTF component  1 :  924.8693 </span></span>
-<span><span class="co">#&gt; MTTF component  2 :  862.1568 </span></span>
-<span><span class="co">#&gt; MTTF component  3 :  803.5639 </span></span>
-<span><span class="co">#&gt; MTTF component  4 :  888.237 </span></span>
-<span><span class="co">#&gt; MTTF component  5 :  867.7484</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/wei_series_mttf.html">wei_series_mttf</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">shapes</span>,</span>
-<span>  scales <span class="op">=</span> <span class="va">alex_weibull_series</span><span class="op">$</span><span class="va">scales</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 222.8836</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"System MTTF: "</span>, <span class="fu"><a href="reference/wei_series_mttf.html">wei_series_mttf</a></span><span class="op">(</span>shapes <span class="op">=</span> <span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; System MTTF:  339.3773</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">tq</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/qwei_series.html">qwei_series</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">.825</span>, shapes <span class="op">=</span> <span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 575.704</span></span>
+<span><span class="fu"><a href="reference/surv_wei_series.html">surv_wei_series</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">tq</span>, shapes <span class="op">=</span> <span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.175</span></span>
+<span><span class="fu"><a href="reference/rwei_series.html">rwei_series</a></span><span class="op">(</span><span class="fl">10L</span>, shapes <span class="op">=</span><span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  95.53603 100.25772 282.05837 126.16159 425.90422  49.83648 130.02596</span></span>
+<span><span class="co">#&gt;  [8] 742.51530  64.97421 147.28431</span></span>
+<span><span class="fu"><a href="reference/pwei_series.html">pwei_series</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>, shapes <span class="op">=</span> <span class="va">shapes</span>, scales <span class="op">=</span> <span class="va">scales</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.001024090 0.002293359 0.003675757 0.005136821 0.006658907</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="brief-overview">Brief Overview<a class="anchor" aria-label="anchor" href="#brief-overview"></a>
+</h2>
+<p>This package implements a likelihood model for Weibull series systems from masked data, including functions for the log-likelihood, score, and hessian of the log-likelihood. Analytical solutions are provided for the log-likelihood and score functions, while the hessian is computed numerically. The package is designed to handle two types of data: masked component cause of failure data with exact failure time and right-censored system lifetime data.</p>
+<p>The masked component data should approximately satisfy certain conditions. The conditions are as follows:</p>
+<div class="section level4">
+<h4 id="condition-1">Condition 1<a class="anchor" aria-label="anchor" href="#condition-1"></a>
+</h4>
+<p>The component cause of failure is in the candidate set.</p>
+</div>
+<div class="section level4">
+<h4 id="condition-2">Condition 2<a class="anchor" aria-label="anchor" href="#condition-2"></a>
+</h4>
+<p>When we condition on the component cause of failure being any particular cause in the canidate set and and the time of failure, the probability of the given candidate set does not vary as we vary the component cause of failure.</p>
+</div>
+<div class="section level4">
+<h4 id="condition-3">Condition 3<a class="anchor" aria-label="anchor" href="#condition-3"></a>
+</h4>
+<p>The masking probabilities are independent of the series system lifetime parameter vector.</p>
+</div>
+<div class="section level3">
+<h3 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
+</h3>
+<p>As a loglikelihood model, we provide the following functions:</p>
+<ul>
+<li>
+<code>loglik_wei_series_md_c1_c2_c3</code> for the log-likelihood</li>
+<li>
+<code>score_wei_series_md_c1_c2_c3</code> for the score function</li>
+<li>
+<code>hessian_wei_series_md_c1_c2_c3</code> for the hessian of the log-likelihood</li>
+</ul>
+<p>For convenience, we also provide some wrappers around the <code>optim</code> function to solve for the maximum likelihood estimates (MLE) of the shape and scale parameters using the Nelder-Mead and simulated annealing algorithms:</p>
+<ul>
+<li>
+<code>mle_nelder_wei_series_md_c1_c2_c3</code> for the Nelder-Mead algorithm</li>
+<li>
+<code>mle_sann_wei_series_md_c1_c2_c3</code> for the simulated annealing algorithm</li>
+</ul>
+<p>Since we base some of our results and analysis on Guo, Szidarovszky, and Niu (2013), we provide the data set from their paper, along with the maximum likelihood estimates of the shape and scale parameters for the Weibull series system. We also provide a function to solve for the MLE using the Nelder-Mead algorithm:</p>
+<ul>
+<li>
+<code>guo_weibull_series_md</code> for a model that generates data similar to Guo, Szidarovszky, and Niu (2013)</li>
+<li>
+<code>guo_weibull_series_table_2</code> for the data from Table 2 in Guo, Szidarovszky, and Niu (2013)</li>
+</ul>
+<p>We also provide a host of supporting functions and data tables, e.g., we provide Weibull series system distribution function that honors the established conventions in R:</p>
+<ul>
+<li>
+<code>dwei_series</code> for the probability density function</li>
+<li>
+<code>pwei_series</code> for the cumulative distribution function</li>
+<li>
+<code>qwei_series</code> for the quantile function</li>
+<li>
+<code>rwei_series</code> for random number generation</li>
+</ul>
+<p>We also provide functions to compute the mean time to failure and the component cause of failure for the Weibull series distribution, along with the hazard and survival functions:</p>
+<ul>
+<li>
+<code>wei_series_mttf</code> for the mean time to failure</li>
+<li>
+<code>wei_series_cause</code> for the component cause of failure</li>
+<li>
+<code>hazard_wei_series</code> for the hazard function</li>
+<li>
+<code>surv_wei_series</code> for the survival function (this is normally done by passing lower.tail = FALSE to <code>pwei_series</code> but we provide a function)</li>
+</ul>
+<p>Finally, we also provide some functions for working with the components of the Weibull series system, e.g., we provide a function to compute the hazard function for the Weibull component lifetimes:</p>
+<ul>
+<li>
+<code>hazard_wei</code> for the hazard function of the Weibull component lifetimes</li>
+<li>
+<code>wei_mttf</code> for the mean time to failure of the Weibull component lifetimes</li>
+</ul>
+</div>
 </div>
 </div>
   </div>

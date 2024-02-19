@@ -117,17 +117,16 @@ scale parameters are:</p><ul><li><p>β1 = 1.2576</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tau</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="va">ll</span> <span class="op">&lt;-</span> <span class="fu"><a href="loglik_wei_series_md_c1_c2_c3.html">loglik_wei_series_md_c1_c2_c3</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">guo_weibull_series_table_2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loglik_wei_series_md_c1_c2_c3(df = guo_weibull_series_table_2):</span> argument "theta" is missing, with no default</span>
 <span class="r-in"><span><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/optim.html" class="external-link">optim</a></span><span class="op">(</span>par <span class="op">=</span> <span class="va">guo_weibull_series_md</span><span class="op">$</span><span class="va">mle</span>,</span></span>
-<span class="r-in"><span>             fn <span class="op">=</span> <span class="va">ll</span>,</span></span>
+<span class="r-in"><span>             fn <span class="op">=</span> <span class="va">loglik_wei_series_md_c1_c2_c3</span>,</span></span>
 <span class="r-in"><span>             hessian <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>             control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parscale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1000</span>, <span class="fl">1</span>, <span class="fl">1000</span>, <span class="fl">1</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (par) fn(par, ...))(c(1.2576, 994.3661, 1.1635, 908.9458, 1.1308, 840.1141)):</span> object 'll' not found</span>
+<span class="r-in"><span>             control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fnscale <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                            parscale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1000</span>, <span class="fl">1</span>, <span class="fl">1000</span>, <span class="fl">1</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             df <span class="op">=</span> <span class="va">guo_weibull_series_md</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">sol</span><span class="op">$</span><span class="va">value</span> <span class="op">-</span> <span class="va">guo_weibull_series_md</span><span class="op">$</span><span class="va">loglike</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-4</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'sol' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">sol</span><span class="op">$</span><span class="va">par</span> <span class="op">-</span> <span class="va">guo_weibull_series_md</span><span class="op">$</span><span class="va">mle</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1e-4</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'sol' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE TRUE TRUE TRUE TRUE</span>
 </code></pre></div>
     </div>
   </div>

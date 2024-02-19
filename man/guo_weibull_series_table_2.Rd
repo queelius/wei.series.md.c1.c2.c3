@@ -47,11 +47,12 @@ This has a log-likelihood of -228.6851.
 }
 \examples{
 head(guo_weibull_series_md)
-ll <- loglik_wei_series_md_c1_c2_c3(df = guo_weibull_series_table_2)
 sol <- optim(par = guo_weibull_series_md$mle,
-             fn = ll,
+             fn = loglik_wei_series_md_c1_c2_c3,
              hessian = TRUE,
-             control = list(parscale = c(1, 1000, 1, 1000, 1, 1000)))
+             control = list(fnscale = -1,
+                            parscale = c(1, 1000, 1, 1000, 1, 1000)),
+             df = guo_weibull_series_md$data)
 abs(sol$value - guo_weibull_series_md$loglike) < 1e-4
 abs(sol$par - guo_weibull_series_md$mle) < 1e-4
 }

@@ -13,7 +13,7 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/Weibull-series-MLE.html</loc>
+    <loc>/reference/Weibull-series-maximum-likelihood-estimator.html</loc>
   </url>
   <url>
     <loc>/reference/Weibull-series.html</loc>
@@ -32,9 +32,6 @@
   </url>
   <url>
     <loc>/reference/guo_weibull_series_md.html</loc>
-  </url>
-  <url>
-    <loc>/reference/guo_weibull_series_mle.html</loc>
   </url>
   <url>
     <loc>/reference/guo_weibull_series_table_2.html</loc>
