@@ -1,114 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Weibull-series-maximum-likelihood-estimator.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Weibull-series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/alex_weibull_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/conditional_masked_cause.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dwei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/generate_guo_weibull_table_2_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/guo_weibull_series_md.html</loc>
-  </url>
-  <url>
-    <loc>/reference/guo_weibull_series_table_2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hazard_wei.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hazard_wei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hessian_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/loglik_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_bernoulli_cand_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_bernoulli_cand_c1_c2_c3_identifiable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_cand_sampler.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_decorate_component_cause_k.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_sample_candidates.html</loc>
-  </url>
-  <url>
-    <loc>/reference/md_series_lifetime_right_censoring.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mle_grad_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mle_lbfgsb_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mle_nelder_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mle_newton_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mle_sann_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pwei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/qwei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rwei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/score_wei_series_md_c1_c2_c3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/score_wei_series_md_c1_c2_c3_slow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/surv_wei_series.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wei_mttf.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wei_series_cause.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wei_series_mttf.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CLAUDE.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/Weibull-series-maximum-likelihood-estimator.html</loc></url>
+<url><loc>/reference/Weibull-series.html</loc></url>
+<url><loc>/reference/alex_weibull_series.html</loc></url>
+<url><loc>/reference/conditional_masked_cause.html</loc></url>
+<url><loc>/reference/dwei_series.html</loc></url>
+<url><loc>/reference/generate_guo_weibull_table_2_data.html</loc></url>
+<url><loc>/reference/guo_weibull_series_md.html</loc></url>
+<url><loc>/reference/guo_weibull_series_table_2.html</loc></url>
+<url><loc>/reference/hazard_wei.html</loc></url>
+<url><loc>/reference/hazard_wei_series.html</loc></url>
+<url><loc>/reference/hessian_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/loglik_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/md_bernoulli_cand_c1_c2_c3.html</loc></url>
+<url><loc>/reference/md_bernoulli_cand_c1_c2_c3_identifiable.html</loc></url>
+<url><loc>/reference/md_cand_sampler.html</loc></url>
+<url><loc>/reference/md_decorate_component_cause_k.html</loc></url>
+<url><loc>/reference/md_sample_candidates.html</loc></url>
+<url><loc>/reference/md_series_lifetime_right_censoring.html</loc></url>
+<url><loc>/reference/mle_grad_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/mle_lbfgsb_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/mle_nelder_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/mle_newton_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/mle_sann_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/pwei_series.html</loc></url>
+<url><loc>/reference/qwei_series.html</loc></url>
+<url><loc>/reference/rwei_series.html</loc></url>
+<url><loc>/reference/score_wei_series_md_c1_c2_c3.html</loc></url>
+<url><loc>/reference/score_wei_series_md_c1_c2_c3_slow.html</loc></url>
+<url><loc>/reference/surv_wei_series.html</loc></url>
+<url><loc>/reference/wei_mttf.html</loc></url>
+<url><loc>/reference/wei_series_cause.html</loc></url>
+<url><loc>/reference/wei_series_mttf.html</loc></url>
 </urlset>
+

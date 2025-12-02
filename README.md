@@ -7,20 +7,53 @@ A likelihood model for series systems with Weibull component lifetimes.
 Accounts for right-censoring and candidate sets indicative of masked
 failure causes.
 
-## Related Publication
-
-This library was developed to support the research presented in the
-following paper:
-
-  - “Reliability Estimation In Series Systems” -
-    [GitHub](https://github.com/queelius/reliability-estimation-in-series-systems)
-
-For detailed explanation and the scientific background behind the
-methodologies implemented in this library, please refer to the paper.
-
 <!-- badges: start -->
 
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
+
+## Related Publication
+
+This package was developed to support the research presented in:
+
+> **Towell, A.** (2023). *Reliability Estimation in Series Systems:
+> Maximum Likelihood Techniques for Right-Censored and Masked Failure
+> Data*. Master’s Project, Southern Illinois University Edwardsville.
+
+- **Paper Repository**:
+  [github.com/queelius/reliability-estimation-in-series-systems](https://github.com/queelius/reliability-estimation-in-series-systems)
+- **PDF**:
+  [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/bookdown/pdfbook/AlexTowellPaper.pdf)
+
+### Abstract
+
+This paper investigates maximum likelihood techniques to estimate
+component reliability from masked failure data in series systems. A
+likelihood model accounts for right-censoring and candidate sets
+indicative of masked failure causes. Extensive simulation studies assess
+the accuracy and precision of maximum likelihood estimates under varying
+sample size, masking probability, and right-censoring time for
+components with Weibull lifetimes. The studies specifically examine the
+accuracy and precision of estimates, along with the coverage probability
+and width of BCa confidence intervals. Despite significant masking and
+censoring, the maximum likelihood estimator demonstrates good overall
+performance. The bootstrap yields correctly specified confidence
+intervals even for small sample sizes.
+
+## Citation
+
+If you use this package in your research, please cite:
+
+``` bibtex
+@mastersthesis{towell2023reliability,
+  author  = {Towell, Alexander},
+  title   = {Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data},
+  school  = {Southern Illinois University Edwardsville},
+  year    = {2023},
+  type    = {Master's Project}
+}
+```
 
 ## Installation
 
@@ -92,8 +125,8 @@ cat("System MTTF: ", wei_series_mttf(shapes = shapes, scales = scales))
 surv_wei_series(t = tq, shapes = shapes, scales = scales)
 #> [1] 0.175
 rwei_series(10L, shapes =shapes, scales = scales)
-#>  [1]  95.53603 100.25772 282.05837 126.16159 425.90422  49.83648 130.02596
-#>  [8] 742.51530  64.97421 147.28431
+#>  [1] 308.85201 447.56712 712.79056 395.01525 484.05539 408.41463 322.80853
+#>  [8] 445.56724 218.89491  40.37571
 pwei_series(seq(1, 5, 1), shapes = shapes, scales = scales)
 #> [1] 0.001024090 0.002293359 0.003675757 0.005136821 0.006658907
 ```
@@ -131,19 +164,18 @@ parameter vector.
 
 As a loglikelihood model, we provide the following functions:
 
-  - `loglik_wei_series_md_c1_c2_c3` for the log-likelihood
-  - `score_wei_series_md_c1_c2_c3` for the score function
-  - `hessian_wei_series_md_c1_c2_c3` for the hessian of the
-    log-likelihood
+- `loglik_wei_series_md_c1_c2_c3` for the log-likelihood
+- `score_wei_series_md_c1_c2_c3` for the score function
+- `hessian_wei_series_md_c1_c2_c3` for the hessian of the log-likelihood
 
 For convenience, we also provide some wrappers around the `optim`
 function to solve for the maximum likelihood estimates (MLE) of the
 shape and scale parameters using the Nelder-Mead and simulated annealing
 algorithms:
 
-  - `mle_nelder_wei_series_md_c1_c2_c3` for the Nelder-Mead algorithm
-  - `mle_sann_wei_series_md_c1_c2_c3` for the simulated annealing
-    algorithm
+- `mle_nelder_wei_series_md_c1_c2_c3` for the Nelder-Mead algorithm
+- `mle_sann_wei_series_md_c1_c2_c3` for the simulated annealing
+  algorithm
 
 Since we base some of our results and analysis on Guo, Szidarovszky, and
 Niu (2013), we provide the data set from their paper, along with the
@@ -151,36 +183,35 @@ maximum likelihood estimates of the shape and scale parameters for the
 Weibull series system. We also provide a function to solve for the MLE
 using the Nelder-Mead algorithm:
 
-  - `guo_weibull_series_md` for a model that generates data similar to
-    Guo, Szidarovszky, and Niu (2013)
-  - `guo_weibull_series_table_2` for the data from Table 2 in Guo,
-    Szidarovszky, and Niu (2013)
+- `guo_weibull_series_md` for a model that generates data similar to
+  Guo, Szidarovszky, and Niu (2013)
+- `guo_weibull_series_table_2` for the data from Table 2 in Guo,
+  Szidarovszky, and Niu (2013)
 
 We also provide a host of supporting functions and data tables, e.g., we
 provide Weibull series system distribution function that honors the
 established conventions in R:
 
-  - `dwei_series` for the probability density function
-  - `pwei_series` for the cumulative distribution function
-  - `qwei_series` for the quantile function
-  - `rwei_series` for random number generation
+- `dwei_series` for the probability density function
+- `pwei_series` for the cumulative distribution function
+- `qwei_series` for the quantile function
+- `rwei_series` for random number generation
 
 We also provide functions to compute the mean time to failure and the
 component cause of failure for the Weibull series distribution, along
 with the hazard and survival functions:
 
-  - `wei_series_mttf` for the mean time to failure
-  - `wei_series_cause` for the component cause of failure
-  - `hazard_wei_series` for the hazard function
-  - `surv_wei_series` for the survival function (this is normally done
-    by passing lower.tail = FALSE to `pwei_series` but we provide a
-    function)
+- `wei_series_mttf` for the mean time to failure
+- `wei_series_cause` for the component cause of failure
+- `hazard_wei_series` for the hazard function
+- `surv_wei_series` for the survival function (this is normally done by
+  passing lower.tail = FALSE to `pwei_series` but we provide a function)
 
 Finally, we also provide some functions for working with the components
 of the Weibull series system, e.g., we provide a function to compute the
 hazard function for the Weibull component lifetimes:
 
-  - `hazard_wei` for the hazard function of the Weibull component
-    lifetimes
-  - `wei_mttf` for the mean time to failure of the Weibull component
-    lifetimes
+- `hazard_wei` for the hazard function of the Weibull component
+  lifetimes
+- `wei_mttf` for the mean time to failure of the Weibull component
+  lifetimes

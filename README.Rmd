@@ -16,20 +16,38 @@ knitr::opts_chunk$set(
 # R package: `wei.series.md.c1.c2.c3`
 
 A likelihood model for series systems with Weibull component lifetimes.
-Accounts for right-censoring and candidate sets indicative of masked failure
-causes. 
+Accounts for right-censoring and candidate sets indicative of masked failure causes.
 
+<!-- badges: start -->
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<!-- badges: end -->
 
 ## Related Publication
 
-This library was developed to support the research presented in the following paper:
+This package was developed to support the research presented in:
 
-- "Reliability Estimation In Series Systems" - [GitHub](https://github.com/queelius/reliability-estimation-in-series-systems)
+> **Towell, A.** (2023). *Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data*. Master's Project, Southern Illinois University Edwardsville.
 
-For detailed explanation and the scientific background behind the methodologies implemented in this library, please refer to the paper.
+- **Paper Repository**: [github.com/queelius/reliability-estimation-in-series-systems](https://github.com/queelius/reliability-estimation-in-series-systems)
+- **PDF**: [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/bookdown/pdfbook/AlexTowellPaper.pdf)
 
-<!-- badges: start -->
-<!-- badges: end -->
+### Abstract
+
+This paper investigates maximum likelihood techniques to estimate component reliability from masked failure data in series systems. A likelihood model accounts for right-censoring and candidate sets indicative of masked failure causes. Extensive simulation studies assess the accuracy and precision of maximum likelihood estimates under varying sample size, masking probability, and right-censoring time for components with Weibull lifetimes. The studies specifically examine the accuracy and precision of estimates, along with the coverage probability and width of BCa confidence intervals. Despite significant masking and censoring, the maximum likelihood estimator demonstrates good overall performance. The bootstrap yields correctly specified confidence intervals even for small sample sizes.
+
+## Citation
+
+If you use this package in your research, please cite:
+
+```bibtex
+@mastersthesis{towell2023reliability,
+  author  = {Towell, Alexander},
+  title   = {Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data},
+  school  = {Southern Illinois University Edwardsville},
+  year    = {2023},
+  type    = {Master's Project}
+}
+```
 
 ## Installation
 

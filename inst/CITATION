@@ -1,0 +1,32 @@
+citHeader("To cite wei.series.md.c1.c2.c3 in publications use:")
+
+bibentry(
+  bibtype  = "MastersThesis",
+  title    = "Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data",
+  author   = person("Alexander", "Towell"),
+  school   = "Southern Illinois University Edwardsville",
+  year     = "2023",
+  type     = "Master's Project",
+  url      = "https://github.com/queelius/reliability-estimation-in-series-systems",
+  textVersion = paste(
+    "Towell, A. (2023).",
+    "Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data.",
+    "Master's Project, Southern Illinois University Edwardsville.",
+    "https://github.com/queelius/reliability-estimation-in-series-systems"
+  )
+)
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "wei.series.md.c1.c2.c3: Estimating Reliability of Weibull Components in Series from Masked Data",
+  author   = person("Alexander", "Towell"),
+  year     = "2023",
+  note     = "R package version 0.9.0",
+  url      = "https://github.com/queelius/wei.series.md.c1.c2.c3",
+  textVersion = paste(
+    "Towell, A. (2023).",
+    "wei.series.md.c1.c2.c3: Estimating Reliability of Weibull Components in Series from Masked Data.",
+    "R package version 0.9.0.",
+    "https://github.com/queelius/wei.series.md.c1.c2.c3"
+  )
+)
