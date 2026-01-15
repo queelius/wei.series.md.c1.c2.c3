@@ -14,29 +14,31 @@ Description: Maximum likelihood estimation of Weibull component parameters in
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 URL: https://github.com/queelius/wei.series.md.c1.c2.c3,
     https://github.com/queelius/reliability-estimation-in-series-systems
 BugReports: https://github.com/queelius/wei.series.md.c1.c2.c3/issues
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     devtools,
     tidyverse,
-Imports: 
+    testthat (>= 3.0.0),
+Imports:
     dplyr,
     stats,
     tibble,
-    md.tools,
-    algebraic.mle,
+    md.tools (>= 0.1.0),
+    algebraic.mle (>= 0.9.0),
     cubature,
     MASS,
     numDeriv
 Remotes:
-    github::queelius/md.tools,
-    github::queelius/algebraic.mle,
-    github::queelius/algebraic.dist
+    github::queelius/md.tools@v0.1.0,
+    github::queelius/algebraic.mle@v0.9.0,
+    github::queelius/algebraic.dist@v0.1.0
 Depends: 
     R (>= 2.10)
 LazyData: true
 VignetteBuilder: knitr
+Config/testthat/edition: 3

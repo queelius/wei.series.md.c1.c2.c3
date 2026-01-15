@@ -176,7 +176,7 @@ mle_grad_wei_series_md_c1_c2_c3 <- function(
     }
 
     res <- list(par = theta0, value = l, counts = iter,
-        convergence = convergence,, score = s)
+        convergence = convergence, score = s)
 
     if (hessian) {
         res$hessian <- hessian_wei_series_md_c1_c2_c3(df = df, theta = theta0, ...)
