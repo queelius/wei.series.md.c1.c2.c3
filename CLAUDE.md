@@ -28,10 +28,16 @@ R CMD check wei.series.md.c1.c2.c3_*.tar.gz
 # Generate documentation (roxygen2)
 devtools::document()
 
-# Run tests (note: formal test suite not yet implemented)
+# Run all tests (testthat edition 3, ~168 tests)
 devtools::test()
 
-# Check test coverage
+# Run a single test file
+testthat::test_file("tests/testthat/test-mle_solvers.R")
+
+# Run tests matching a pattern
+devtools::test(filter = "loglik")
+
+# Check test coverage (~90%)
 covr::package_coverage()
 
 # Build pkgdown site
@@ -48,12 +54,15 @@ fit <- mle_numerical(mle_lbfgsb_wei_series_md_c1_c2_c3(
 
 ## Dependencies
 
-Install required GitHub packages before building:
+GitHub dependencies are pinned to specific tags in `Remotes:` for reproducibility:
 ```r
-devtools::install_github("queelius/md.tools")
-devtools::install_github("queelius/algebraic.mle")
-devtools::install_github("queelius/algebraic.dist")
+# Install pinned versions (handled automatically by devtools::install)
+devtools::install_github("queelius/md.tools@v0.1.0")
+devtools::install_github("queelius/algebraic.mle@v0.9.0")
+devtools::install_github("queelius/algebraic.dist@v0.1.0")
 ```
+
+**Note**: `README.md` is generated from `README.Rmd` -- edit the `.Rmd` source, not `README.md` directly.
 
 ## Architecture
 

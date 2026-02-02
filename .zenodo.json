@@ -1,0 +1,37 @@
+{
+  "title": "wei.series.md.c1.c2.c3: Estimating Reliability of Weibull Components in Series from Masked Data",
+  "description": "R package for maximum likelihood estimation of Weibull component parameters in series systems from masked failure data. Implements the methodology from Towell (2023) for right-censored system lifetimes and masked component failure causes via candidate sets satisfying identifiability conditions C1, C2, and C3.",
+  "creators": [
+    {
+      "name": "Towell, Alexander",
+      "affiliation": "Southern Illinois University Edwardsville",
+      "orcid": "0000-0001-6443-9897"
+    }
+  ],
+  "upload_type": "software",
+  "license": "GPL-3.0-or-later",
+  "access_right": "open",
+  "language": "eng",
+  "keywords": [
+    "reliability",
+    "weibull distribution",
+    "series systems",
+    "masked failure data",
+    "maximum likelihood estimation",
+    "right censoring",
+    "survival analysis",
+    "R"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/queelius/reliability-estimation-in-series-systems",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-thesis"
+    },
+    {
+      "identifier": "https://github.com/queelius/wei.series.md.c1.c2.c3",
+      "relation": "isIdenticalTo",
+      "resource_type": "software"
+    }
+  ]
+}
