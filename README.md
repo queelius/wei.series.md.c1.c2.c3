@@ -24,7 +24,7 @@ This package was developed to support the research presented in:
 - **Paper Repository**:
   [github.com/queelius/reliability-estimation-in-series-systems](https://github.com/queelius/reliability-estimation-in-series-systems)
 - **PDF**:
-  [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/bookdown/pdfbook/AlexTowellPaper.pdf)
+  [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/main/pdfbook/AlexTowellPaper.pdf)
 
 ### Abstract
 

@@ -29,7 +29,7 @@ This package was developed to support the research presented in:
 > **Towell, A.** (2023). *Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data*. Master's Project, Southern Illinois University Edwardsville.
 
 - **Paper Repository**: [github.com/queelius/reliability-estimation-in-series-systems](https://github.com/queelius/reliability-estimation-in-series-systems)
-- **PDF**: [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/bookdown/pdfbook/AlexTowellPaper.pdf)
+- **PDF**: [AlexTowellPaper.pdf](https://github.com/queelius/reliability-estimation-in-series-systems/blob/main/pdfbook/AlexTowellPaper.pdf)
 
 ### Abstract
 
