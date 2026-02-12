@@ -1,15 +1,17 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite both the software and the associated thesis."
+message: "If you use this software, please cite both the software and the associated paper."
 title: "wei.series.md.c1.c2.c3: Estimating Reliability of Weibull Components in Series from Masked Data"
 type: software
 version: 0.9.0
 date-released: "2023-01-01"
+doi: "10.5281/zenodo.18615922"
 license: GPL-3.0-or-later
 repository-code: "https://github.com/queelius/wei.series.md.c1.c2.c3"
 url: "https://github.com/queelius/wei.series.md.c1.c2.c3"
 authors:
   - family-names: Towell
     given-names: Alexander
+    alias: "Alex Towell"
     email: lex@metafunctor.com
     orcid: "https://orcid.org/0000-0001-6443-9897"
     affiliation: "Southern Illinois University Edwardsville"
@@ -22,16 +24,18 @@ keywords:
   - right censoring
   - survival analysis
   - R
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.18615922"
+    description: "Zenodo archive"
 preferred-citation:
-  type: thesis
-  thesis-type: "Master's Project"
+  type: article
   title: "Reliability Estimation in Series Systems: Maximum Likelihood Techniques for Right-Censored and Masked Failure Data"
   authors:
     - family-names: Towell
       given-names: Alexander
       orcid: "https://orcid.org/0000-0001-6443-9897"
       affiliation: "Southern Illinois University Edwardsville"
-  institution:
-    name: "Southern Illinois University Edwardsville"
   year: 2023
+  doi: "10.5281/zenodo.18615871"
   url: "https://github.com/queelius/reliability-estimation-in-series-systems"
